@@ -1,7 +1,7 @@
 services:
   glam-client:
     container_name: glam_client
-    image: ${DOCKER_USER}/glam-client:latest
+    image: ${DOCKER_USERNAME}/glam-client:latest
     ports:
       - 4000:3000
     networks:
