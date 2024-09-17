@@ -6,6 +6,7 @@ services:
       - 4000:3000
     networks:
       - glam-networks
+    restart: always
 
 networks:
   glam-networks:
