@@ -2,6 +2,7 @@ on:
     push:
         branches: 
             - main
+            - deploy/add_script_deployment
 
 jobs:
     build-image:
@@ -42,6 +43,6 @@ jobs:
             
           - name: Infisical Login
             run: export INFISICAL_TOKEN=$(infisical login --domain=${{secrets.INFISICAL_URL}} --method=universal-auth --client-id=${{secrets.INFISICAL_CLIENT_ID}} --client-secret=${{secrets.INFISICAL_CLIENT_SECRET}} --silent --plain)
-            
+
           - name: Deploy Client
-            run: infisical run --env=prod --token=${INFISICAL_TOKEN} --domain=${{secrets.INFISICAL_URL}} --projectId=${{secrets.INFISICAL_PROJECT_ID}} --path=/glam-client --watch --command="docker compose -f docker-compose.prod.yaml -p glam-client up -d"
+            run: infisical run --env=prod --token=${INFISICAL_TOKEN} --domain=${{secrets.INFISICAL_URL}} --projectId=${{secrets.INFISICAL_PROJECT_ID}} --path=/glam-client --watch -- docker compose -f docker-compose.prod.yaml -p glam-client up -d
