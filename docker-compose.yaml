@@ -1,0 +1,7 @@
+services:
+  glam-client:
+    container_name: glam_client
+    image: ${DOCKER_USERNAME}/glam-client:latest
+    build:
+      context: .
+      dockerfile: Dockerfile

@@ -1,0 +1,17 @@
+services:
+  glam-client:
+    container_name: glam_client
+    image: ${DOCKER_USERNAME}/glam-client:latest
+    ports:
+      - 4000:3000
+    environment:
+      - AUTH_HOST=${AUTH_HOST}
+      - USER_HOST=${USER_HOST}
+    networks:
+      - glam-networks
+    restart: always
+
+networks:
+  glam-networks:
+    name: glam_networks
+    external: true
