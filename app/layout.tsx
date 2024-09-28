@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import NavBar from './_components/header/NavBar';
+import Footer from './_components/footer/Footer';
 
 export const metadata: Metadata = {
   title: 'Lovely Glam',
@@ -16,7 +17,8 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <NavBar />
-        {children}
+        <div className='min-h-screen'>{children}</div>
+        <Footer />
       </body>
     </html>
   );
