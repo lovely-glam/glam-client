@@ -28,7 +28,7 @@ const ShopCard: React.FC<{
   );
 };
 
-const Rating: React.FC<{ value: number }> = ({ value }) => {
+export const Rating: React.FC<{ value: number }> = ({ value }) => {
   // Ensure the value is between 0 and 5
   const normalizedValue = Math.max(0, Math.min(5, value));
 
