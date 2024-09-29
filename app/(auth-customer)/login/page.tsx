@@ -7,7 +7,7 @@ const Login = () => {
     <div className='w-full h-screen bg-accent p-8 flex justify-center'>
       <div className='flex flex-col space-y-4 items-center p-4 w-1/4 h-3/4 bg-white rounded-md drop-shadow-xl'>
         <div className='font-bold text-xl pt-4'>Đăng nhập</div>
-        <div className='flex flex-col space-y-2 w-full px-2'>
+        <div className='flex flex-col space-y-2 w-full'>
           <div>Email</div>
           <input
             type='text'
@@ -15,7 +15,7 @@ const Login = () => {
             className='input input-bordered'
           />
         </div>
-        <div className='flex flex-col space-y-2 w-full px-2'>
+        <div className='flex flex-col space-y-2 w-full'>
           <div>Password</div>
           <input
             type='text'
