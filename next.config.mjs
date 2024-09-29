@@ -16,7 +16,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'storage.googleapis.com',
+        hostname: 'lovely-glam.hcm.ss.bfcplatform.vn',
       },
     ],
   },

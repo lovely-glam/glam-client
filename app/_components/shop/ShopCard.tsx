@@ -15,9 +15,7 @@ const ShopCard: React.FC<{
           <Image src={image} width={200} height={200} alt='Card' />
         </div>
         <div className='card-body'>
-          <h2 className='card-title text-primary flex justify-center italic font-bold'>
-            {name}
-          </h2>
+          <h2 className='card-title text-primary italic font-bold'>{name}</h2>
           <div className='flex space-x-2 items-center'>
             <div>{rating}</div>
             <Rating value={rating} />

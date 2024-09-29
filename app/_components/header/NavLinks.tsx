@@ -26,6 +26,7 @@ const NavLinks = () => {
                 'text-black font-semibold': link.path === currentPath,
                 'text-black': link.path !== currentPath,
                 'hover:font-semibold transition-colors': true,
+                'select-none': true,
               })}
             >
               {link.title}
