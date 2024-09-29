@@ -1,5 +1,5 @@
+import ShopCard from '@/app/_components/shop/ShopCard';
 import React from 'react';
-import ShopCard from '../_components/shop/ShopCard';
 
 const Shops = () => {
   return (

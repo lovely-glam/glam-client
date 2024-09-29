@@ -43,7 +43,7 @@ const Register = () => {
         </div>
         <button className='btn btn-outline btn-info px-8 w-full flex'>
           <Image
-            src='https://storage.googleapis.com/support-kms-prod/ZAl1gIwyUsvfwxoW9ns47iJFioHXODBbIkrK'
+            src='https://lovely-glam.hcm.ss.bfcplatform.vn/eb131115-22e9-4e88-b4cb-02071f0f1ba2-google.png'
             width={20}
             height={20}
             alt='Google'
