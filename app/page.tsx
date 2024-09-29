@@ -6,7 +6,7 @@ export default function Home() {
     <div className='bg-gray-50 min-h-screen'>
       <section className='relative bg-pink-100 py-16 h-max'>
         <div className='container mx-auto text-center'>
-          <Image />
+          {/* <Image /> */}
           {/* Search bar */}
           <div className='relative mx-auto max-w-lg'>
             <input
