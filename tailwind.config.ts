@@ -19,7 +19,7 @@ const config: Config = {
     themes: [
       {
         glam: {
-          primary: '#b91c1c',
+          primary: '#A23D3D',
           secondary: '#ffe4e6',
           accent: '#e5e7eb',
           neutral: '#000000',
