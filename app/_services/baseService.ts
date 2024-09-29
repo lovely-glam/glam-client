@@ -1,13 +1,9 @@
 import axios from 'axios';
 
-export const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-console.log(baseUrl);
+export const axiosGet = (url: string, config: any) => axios.get(url, config);
 
-export const axiosGet = (path: string, config: any) =>
-  axios.get(baseUrl + path, config);
+export const axiosPost = (url: string, data: any, config: any) =>
+  axios.post(url, data, config);
 
-export const axiosPost = (path: string, data: any, config: any) =>
-  axios.post(baseUrl + path, data, config);
-
-export const axiosDelete = (path: string, config: any) =>
-  axios.delete(baseUrl + path, config);
+export const axiosDelete = (url: string, config: any) =>
+  axios.delete(url, config);

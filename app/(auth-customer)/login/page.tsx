@@ -1,8 +1,58 @@
+'use client';
+import { loginCustomer } from '@/app/_services/authService';
+import { jwtDecode } from 'jwt-decode';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+
+type LoginCredentials = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
+  const router = useRouter();
+  const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
+    email: '',
+    password: '',
+  });
+
+  const handleLogin = async () => {
+    try {
+      const res = await loginCustomer({
+        username: loginCredentials.email,
+        password: loginCredentials.password,
+      });
+
+      console.log('???');
+
+      if (res.status === 200) {
+        // save token to local storage
+        const data = res.data.content;
+        console.log(jwtDecode(data.accessToken));
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+
+        const decodedToken = jwtDecode(data.accessToken) as any;
+        const role = decodedToken.user.role;
+
+        // redirect to dashboard
+        if (role.toUpperCase() === 'ADMIN') {
+          router.push('/admin');
+        } else if (role.toUpperCase() === 'OWNER') {
+          router.push('/owner');
+        } else if (role.toUpperCase() === 'STAFF') {
+          router.push('/staff/checkin');
+        } else {
+          router.push('/');
+        }
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
   return (
     <div className='w-full h-screen p-8 flex justify-center'>
       <div className='flex flex-col space-y-4 items-center p-4 w-1/4 h-3/4 bg-white rounded-md drop-shadow-xl'>
@@ -13,17 +63,31 @@ const Login = () => {
             type='text'
             placeholder='Nhập email'
             className='input input-bordered'
+            onChange={(e) => {
+              setLoginCredentials({
+                ...loginCredentials,
+                email: e.target.value,
+              });
+            }}
           />
         </div>
         <div className='flex flex-col space-y-2 w-full'>
           <div>Password</div>
           <input
-            type='text'
+            type='password'
             placeholder='Nhập password'
             className='input input-bordered'
+            onChange={(e) => {
+              setLoginCredentials({
+                ...loginCredentials,
+                password: e.target.value,
+              });
+            }}
           />
         </div>
-        <button className='btn btn-primary px-8'>Đăng nhập</button>
+        <button className='btn btn-primary px-8' onClick={() => handleLogin()}>
+          Đăng nhập
+        </button>
         <div className='flex justify-between w-full'>
           <Link href='/register' className='text-info'>
             Tạo tài khoản
