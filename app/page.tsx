@@ -7,7 +7,7 @@ import Website from './_components/home/Website';
 export default function Home() {
   return (
     <div className='min-h-screen'>
-      <section className='relative bg-pink-100 py-16 h-[34.5rem] flex items-center'>
+      <section className='relative bg-pink-100 py-16 h-[39rem] flex items-center justify-center'>
         <div className='absolute inset-0 overflow-hidden'>
           <div className='absolute inset-0 filter blur-md'>
             <Image
@@ -18,8 +18,8 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className='container mx-auto text-center relative'>
-          <div className='relative mx-auto max-w-lg'>
+        <div className='text-center relative w-[33rem]'>
+          <div className='relative min-w-lg w-full'>
             <input
               type='text'
               placeholder='Search for services or locations'

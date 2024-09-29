@@ -4,7 +4,7 @@ import { Rating } from '../shop/ShopCard';
 const ShopCard = () => {
   return (
     <section className='p-12 bg-primary'>
-      <div className='container mx-auto'>
+      <div className='px-20'>
         <div className='flex space-x-4'>
           <div className='flex-1 bg-white shadow-md rounded-lg overflow-hidden'>
             <Image

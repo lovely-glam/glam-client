@@ -4,7 +4,7 @@ import { Rating } from '../shop/ShopCard';
 const Website = () => {
   return (
     <section className='p-12 bg-white'>
-      <div className='container mx-auto'>
+      <div className='px-20'>
         <h2 className='text-2xl font-semibold text-gray-800 mb-4'>
           Đánh giá về website
         </h2>
