@@ -4,7 +4,7 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div className='w-full h-screen bg-accent p-8 flex justify-center'>
+    <div className='w-full h-screen p-8 flex justify-center'>
       <div className='flex flex-col space-y-4 items-center p-4 w-1/4 h-3/4 bg-white rounded-md drop-shadow-xl'>
         <div className='font-bold text-xl pt-4'>Đăng nhập</div>
         <div className='flex flex-col space-y-2 w-full'>

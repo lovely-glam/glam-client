@@ -4,7 +4,7 @@ import React from 'react';
 
 const Register = () => {
   return (
-    <div className='w-full h-screen bg-accent p-8 flex justify-center'>
+    <div className='w-full h-screen p-8 flex justify-center'>
       <div className='flex flex-col space-y-4 items-center p-4 w-1/3 h-[85%] bg-white rounded-md drop-shadow-xl'>
         <div className='font-bold text-xl pt-4'>Tạo tài khoản</div>
         <div className='flex w-full space-x-6'>
