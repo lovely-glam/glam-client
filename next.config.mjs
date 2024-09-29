@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cliply.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'encrypted-tbn0.gstatic.com',
+      },
     ],
   },
 };
