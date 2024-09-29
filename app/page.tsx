@@ -7,7 +7,7 @@ import Website from './_components/home/Website';
 export default function Home() {
   return (
     <div className='min-h-screen'>
-      <section className='relative bg-pink-100 py-16 h-[39rem] flex items-center justify-center'>
+      <section className='relative bg-pink-100 py-16 h-[35rem] flex items-center justify-center'>
         <div className='absolute inset-0 overflow-hidden'>
           <div className='absolute inset-0 filter blur-md'>
             <Image
