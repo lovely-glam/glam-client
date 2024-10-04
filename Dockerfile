@@ -22,4 +22,5 @@ WORKDIR /app
 COPY --from=build /build/.next ./.next
 COPY --from=build /build/node_modules ./node_modules
 COPY --from=build /build/package.json /build/package-lock.json ./
+COPY --from=build /build/next.config.mjs/ ./
 ENTRYPOINT [ "npm", "start" ]
