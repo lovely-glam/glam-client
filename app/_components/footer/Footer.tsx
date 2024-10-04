@@ -5,7 +5,7 @@ import { TiMail, TiPhoneOutline } from 'react-icons/ti';
 const Footer = () => {
   return (
     <footer className='bg-accent p-6 pb-8'>
-      <div className='container mx-auto flex justify-between'>
+      <div className='flex justify-evenly'>
         {/* Left Section: Lovely Glam details */}
         <div className='space-y-6'>
           <h2 className='font-bold text-lg'>Lovely Glam</h2>
