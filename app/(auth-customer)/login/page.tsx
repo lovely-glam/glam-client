@@ -5,27 +5,50 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type LoginCredentials = {
-  email: string;
+  username: string;
   password: string;
 };
 
 const Login = () => {
   const router = useRouter();
   const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
-    email: '',
+    username: '',
     password: '',
   });
 
   const handleLogin = async () => {
-    try {
-      const res = await loginCustomer({
-        username: loginCredentials.email,
-        password: loginCredentials.password,
-      });
+    const loginToast = toast.loading('Đang đăng nhập...', {
+      toastId: 'loginToast',
+      autoClose: false,
+      closeOnClick: false,
+      hideProgressBar: true,
+      draggable: false,
+      position: 'bottom-right',
+      pauseOnHover: false,
+      progress: undefined,
+      theme: 'light',
+    });
 
-      console.log('???');
+    try {
+      const res = await loginCustomer(loginCredentials);
+
+      toast.update(loginToast, {
+        render: 'Đăng nhập thành công!',
+        type: 'success',
+        isLoading: false,
+        autoClose: 2500,
+        position: 'bottom-right',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: 'light',
+      });
 
       if (res.status === 200) {
         // save token to local storage
@@ -49,24 +72,37 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.error('Login failed:', error);
+      toast.update(loginToast, {
+        render: 'Tên đăng nhập hoặc mật khẩu không tồn tại!',
+        type: 'error',
+        isLoading: false,
+        autoClose: 2500,
+        position: 'bottom-right',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: 'light',
+      });
     }
   };
 
   return (
     <div className='w-full h-screen p-8 flex justify-center'>
+      <ToastContainer />
       <div className='flex flex-col space-y-4 items-center p-4 w-1/4 h-3/4 bg-white rounded-md drop-shadow-xl'>
         <div className='font-bold text-xl pt-4'>Đăng nhập</div>
         <div className='flex flex-col space-y-2 w-full'>
-          <div>Email</div>
+          <div>Username</div>
           <input
             type='text'
-            placeholder='Nhập email'
+            placeholder='Nhập username'
             className='input input-bordered'
             onChange={(e) => {
               setLoginCredentials({
                 ...loginCredentials,
-                email: e.target.value,
+                username: e.target.value,
               });
             }}
           />
