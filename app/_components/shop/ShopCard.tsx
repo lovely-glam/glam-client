@@ -72,4 +72,46 @@ export const Rating: React.FC<{ value: number }> = ({ value }) => {
   );
 };
 
+export const RatingLarge: React.FC<{ value: number }> = ({ value }) => {
+  // Ensure the value is between 0 and 5
+  const normalizedValue = Math.max(0, Math.min(5, value));
+
+  // Round to the nearest half (e.g., 3.9 becomes 4.0, 4.4 becomes 4.5)
+  const roundedValue = Math.round(normalizedValue * 2) / 2;
+
+  // Determine how many full stars and half stars to fill
+  const fullStars = Math.floor(roundedValue); // Full stars count
+  const hasHalfStar = roundedValue % 1 === 0.5; // Whether there's a half star
+  const totalStars = 5; // Total stars to display
+
+  return (
+    <div className='rating rating-lg rating-half'>
+      {Array.from({ length: totalStars }).map((_, index) => (
+        <React.Fragment key={index}>
+          {/* Left half of the star */}
+          <input
+            type='radio'
+            name='rating-10'
+            disabled
+            className={`mask mask-star-2 mask-half-1 ${
+              index < fullStars || (index === fullStars && hasHalfStar)
+                ? 'bg-black'
+                : 'bg-gray-200'
+            }`}
+          />
+          {/* Right half of the star */}
+          <input
+            type='radio'
+            name='rating-10'
+            disabled
+            className={`mask mask-star-2 mask-half-2 ${
+              index < fullStars ? 'bg-black' : 'bg-gray-200'
+            }`}
+          />
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
 export default ShopCard;
