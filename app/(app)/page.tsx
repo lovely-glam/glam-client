@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import Review from './_components/home/Review';
-import ShopCard from './_components/home/ShopCard';
-import Website from './_components/home/Website';
+import ShopCard from '../_components/home/ShopCard';
+import Review from '../_components/home/Review';
+import Website from '../_components/home/Website';
 
 export default function Home() {
   return (
