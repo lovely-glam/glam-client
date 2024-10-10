@@ -1,15 +1,17 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const ShopCard: React.FC<{
+  id: string;
   name: string;
   rating: number;
   address: string;
   services: string;
   image: string;
-}> = ({ name, rating, address, services, image }) => {
+}> = ({ id, name, rating, address, services, image }) => {
   return (
-    <div className='p-4'>
+    <Link href={`/shops/${id}`} className='p-4'>
       <div className='card card-side bg-base-100 shadow-2xl border-black border-2 p-8'>
         <div className='flex justify-center items-center w-1/2'>
           <Image src={image} width={200} height={200} alt='Card' />
@@ -24,7 +26,7 @@ const ShopCard: React.FC<{
           <p className='font-bold'>{services}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
