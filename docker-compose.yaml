@@ -5,3 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        AUTH_HOST: ${NEXT_PUBLIC_AUTH_HOST}
+        BUSINESS_HOST: ${NEXT_PUBLIC_BUSINESS_HOST}
+        SYSTEM_HOST: ${NEXT_PUBLIC_SYSTEM_HOST}
+        USER_HOST: ${NEXT_PUBLIC_USER_HOST}
+        WEBSOCKET_HOST: ${NEXT_PUBLIC_WEBSOCKET_HOST}
+        WORKER_HOST: ${NEXT_PUBLIC_WORKER_HOST}
