@@ -1,11 +1,26 @@
+'use client';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NavLinks from './NavLinks';
 import Link from 'next/link';
 import { RiCalendar2Fill } from 'react-icons/ri';
 import { MdOutlineShoppingCart } from 'react-icons/md';
+import { getCurrentUsername } from '@/app/_services/localService';
 
 const NavBar = () => {
+  const [username, setUsername] = useState<any>(null);
+
+  useEffect(() => {
+    checkUser();
+  }, []);
+
+  const checkUser = () => {
+    if (getCurrentUsername() !== null) {
+      setUsername(getCurrentUsername());
+      // TODO: get profile
+    }
+  };
+
   return (
     <nav className='p-4 px-8'>
       <div className='flex justify-between items-center w-full'>
@@ -22,12 +37,16 @@ const NavBar = () => {
         <div className='flex space-x-10 items-center'>
           <RiCalendar2Fill size={25} />
           <MdOutlineShoppingCart size={25} />
-          <Link
-            href='/login'
-            className='btn btn-neutral text-white rounded-full py-0'
-          >
-            Đăng nhập
-          </Link>
+          {username !== null ? (
+            <div></div>
+          ) : (
+            <Link
+              href='/login'
+              className='btn btn-neutral text-white rounded-full py-0'
+            >
+              Đăng nhập
+            </Link>
+          )}
         </div>
       </div>
     </nav>
