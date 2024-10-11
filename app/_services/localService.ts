@@ -12,6 +12,8 @@ if (typeof window !== 'undefined') {
     decodedToken = jwtDecode(token as any);
 }
 
+console.log(user);
+
 let username = null;
 let role = null;
 let tokenType = null;

@@ -7,22 +7,33 @@ import { RiCalendar2Fill } from 'react-icons/ri';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { getCurrentUsername } from '@/app/_services/localService';
 import { usePathname } from 'next/navigation';
+import { getCurrentUser } from '@/app/_services/userService';
 
 const NavBar = () => {
-  const pathname = usePathname();
   const [username, setUsername] = useState<any>(null);
+  const [authenticated, setAuthenticated] = useState<any>(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     checkUser();
-  }, [pathname]);
+  }, []);
 
-  const checkUser = () => {
-    console.log(getCurrentUsername());
-    if (getCurrentUsername() !== null) {
-      setUsername(getCurrentUsername());
+  const checkUser = async () => {
+    const token = localStorage.getItem('accessToken');
+
+    if (token !== null && token !== undefined) {
+      setAuthenticated(true);
       // TODO: get profile
+      const res = await getCurrentUser();
+
+      if (res.status === 200) {
+        console.log(res.data);
+        setUser(res.data.content);
+      }
     }
   };
+
+  const isAuthenticated = () => {};
 
   return (
     <nav className='p-4 px-8'>
@@ -40,7 +51,7 @@ const NavBar = () => {
         <div className='flex space-x-10 items-center'>
           <RiCalendar2Fill size={25} />
           <MdOutlineShoppingCart size={25} />
-          {username !== null ? (
+          {authenticated ? (
             <div></div>
           ) : (
             <Link

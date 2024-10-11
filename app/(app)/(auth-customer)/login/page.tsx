@@ -68,7 +68,7 @@ const Login = () => {
           } else if (role.toUpperCase() === 'STAFF') {
             router.push('/staff/checkin');
           } else {
-            router.push('/');
+            window.location.href = '/';
           }
         }
       }
