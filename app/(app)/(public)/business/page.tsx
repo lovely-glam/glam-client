@@ -57,7 +57,7 @@ const Business = () => {
           <Image src={''} alt='' width={400} height={500} />
         </div>
         <div>
-          <p className='text-xl'>
+          <div className='text-xl'>
             <p className='font-bold'>
               Lovely Glam: Giải pháp quản lý hoàn hảo cho tiệm nail chuyên
               nghiệp
@@ -105,7 +105,7 @@ const Business = () => {
               Hãy liên hệ với <span className='font-bold'>Lovely Glam</span>{' '}
               ngay hôm nay để được tư vấn miễn phí!
             </p>
-          </p>
+          </div>
         </div>
       </div>
       <div className='w-screen bg-primary text-accent text-center font-bold text-3xl italic p-4'>

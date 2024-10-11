@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lovely-glam.hcm.ss.bfcplatform.vn',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 };

@@ -3,7 +3,7 @@ import { axiosGet, axiosPost } from './baseService';
 var token: string | null = '';
 
 if (typeof window !== 'undefined') {
-  token = localStorage?.getItem('accessToken');
+  token = 'Bearer ' + localStorage?.getItem('accessToken');
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_USER_HOST;

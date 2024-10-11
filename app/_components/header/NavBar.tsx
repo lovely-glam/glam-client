@@ -52,7 +52,15 @@ const NavBar = () => {
           <RiCalendar2Fill size={25} />
           <MdOutlineShoppingCart size={25} />
           {authenticated ? (
-            <div></div>
+            <div>
+              <Image
+                src={user?.avatarUrl ?? ''}
+                alt=''
+                width={60}
+                height={60}
+                className='rounded-full'
+              />
+            </div>
           ) : (
             <Link
               href='/login'
