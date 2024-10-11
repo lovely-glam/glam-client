@@ -6,15 +6,18 @@ import Link from 'next/link';
 import { RiCalendar2Fill } from 'react-icons/ri';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { getCurrentUsername } from '@/app/_services/localService';
+import { usePathname } from 'next/navigation';
 
 const NavBar = () => {
+  const pathname = usePathname();
   const [username, setUsername] = useState<any>(null);
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [pathname]);
 
   const checkUser = () => {
+    console.log(getCurrentUsername());
     if (getCurrentUsername() !== null) {
       setUsername(getCurrentUsername());
       // TODO: get profile

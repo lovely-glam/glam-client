@@ -60,14 +60,16 @@ const Login = () => {
         const role = decodedToken.user.role;
 
         // redirect to dashboard
-        if (role.toUpperCase() === 'ADMIN') {
-          router.push('/admin');
-        } else if (role.toUpperCase() === 'OWNER') {
-          router.push('/owner');
-        } else if (role.toUpperCase() === 'STAFF') {
-          router.push('/staff/checkin');
-        } else {
-          router.push('/');
+        if (localStorage.getItem('accessToken') !== undefined) {
+          if (role.toUpperCase() === 'ADMIN') {
+            router.push('/admin');
+          } else if (role.toUpperCase() === 'OWNER') {
+            router.push('/owner');
+          } else if (role.toUpperCase() === 'STAFF') {
+            router.push('/staff/checkin');
+          } else {
+            router.push('/');
+          }
         }
       }
     } catch (error) {
