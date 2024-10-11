@@ -12,11 +12,16 @@ if (typeof window !== 'undefined') {
     decodedToken = jwtDecode(token as any);
 }
 
-var user = decodedToken.user;
+let username = null;
+let role = null;
+let tokenType = null;
 
-const username = user.username;
-const role = user.role;
-const tokenType = user.tokenType;
+var user = decodedToken.user;
+if (user !== undefined) {
+  username = user.username;
+  role = user.role;
+  tokenType = user.tokenType;
+}
 
 export const getCurrentUsername = () => {
   return username;

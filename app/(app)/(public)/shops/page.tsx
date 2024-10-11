@@ -29,7 +29,7 @@ const Shops = () => {
               key={shop.id}
               id={shop.id}
               name={shop.name}
-              rating={shop.rating}
+              rating={shop.vote}
               address={shop.address}
               services={shop.services}
               image={shop.avatarUrl}

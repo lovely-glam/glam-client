@@ -19,7 +19,7 @@ const ShopCard: React.FC<{
         <div className='card-body'>
           <h2 className='card-title text-primary italic font-bold'>{name}</h2>
           <div className='flex space-x-2 items-center'>
-            <div>{rating}</div>
+            <div>{rating.toFixed(1)}</div>
             <Rating value={rating} />
           </div>
           <p className='border-b-2 border-black pb-4'>{address}</p>
