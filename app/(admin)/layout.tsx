@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import '../globals.css';
-import NavBar from '../_components/header/NavBar';
-import Footer from '../_components/footer/Footer';
 import SideBar from '../_components/admin/SideBar';
+import Footer from '../_components/footer/Footer';
+import NavBar from '../_components/header/NavBar';
+import '../globals.css';
 
 export const metadata: Metadata = {
   title: 'Lovely Glam',
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <NavBar />
-        <div className='min-h-screen bg-gray-100'>
+        <div className='min-h-screen bg-gray-100 flex'>
           <SideBar />
           {children}
         </div>
