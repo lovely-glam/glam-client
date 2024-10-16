@@ -1,11 +1,7 @@
-import ChatWindow from '@/app/_components/chat/ChatWindow';
 import React from 'react';
 
 const Contact = () => {
-  return (<>
-  
-  <ChatWindow shopProfileId={1}></ChatWindow>
-  </>)
+  return <div>Contact</div>;
 };
 
 export default Contact;
