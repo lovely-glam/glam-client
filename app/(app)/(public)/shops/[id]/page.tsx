@@ -1,3 +1,5 @@
+"use client"
+import ChatWindow from '@/app/_components/chat/ChatWindow';
 import { RatingLarge } from '@/app/_components/shop/ShopCard';
 import ShopReview from '@/app/_components/shopDetail/ShopReview';
 import ShopService from '@/app/_components/shopDetail/ShopService';
@@ -74,6 +76,7 @@ const ShopDetail = () => {
           </tbody>
         </table>
       </div>
+      <ChatWindow shopProfileId={Number(id)}/>
     </div>
   );
 };
