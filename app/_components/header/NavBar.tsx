@@ -88,13 +88,13 @@ const NavBar = () => {
                       href='/profile'
                       className='text-sm block px-4 py-2 text-black hover:bg-gray-300'
                     >
-                      Profile
+                      Hồ sơ
                     </Link>
                     <button
                       onClick={handleLogout}
                       className='text-sm block w-full text-left px-4 py-2 text-black hover:bg-gray-300'
                     >
-                      Logout
+                      Đăng xuất
                     </button>
                   </div>
                 )}
