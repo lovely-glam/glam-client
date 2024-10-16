@@ -11,24 +11,22 @@ const Business = () => {
       <div className='flex justify-center space-x-24'>
         <div className='flex flex-col items-center w-1/4 space-y-4'>
           <div className='bg-secondary w-72 h-48 rounded-3xl'></div>
-          <div className='font-bold'>Tài khoản cá nhân</div>
+          <div className='font-bold'>Đăng nhập tài khoản doanh nghiệp</div>
           <div>
             <div className='italic'>
-              Khách hàng dễ dàng đặt lịch trực tuyến, tránh tình trạng quá tải
-              tại cửa hàng.
+              Đã có tài khoản? Hãy đăng nhập vào tài khoản doanh nghiệp của bạn
+              tại đây.
             </div>
-            <div className='italic'>
-              Khách hàng có thể đánh giá dịch vụ, giúp cửa hàng cải thiện chất
-              lượng.
-            </div>
+            <br />
+            <div className='italic'>Dành cho doanh nghiệp đã đăng ký.</div>
           </div>
-          <Link href='/login' className='btn btn-primary'>
-            Tạo tài khoản cá nhân
+          <Link href='/login-business' className='btn btn-primary'>
+            Đăng nhập doanh nghiệp
           </Link>
         </div>
         <div className='flex flex-col items-center w-1/4 space-y-4'>
           <div className='bg-secondary w-72 h-48 rounded-3xl'></div>
-          <div className='font-bold'>Tài khoản doanh nghiệp</div>
+          <div className='font-bold'>Tạo tài khoản doanh nghiệp</div>
           <div>
             <div className='italic'>
               Cửa hàng dễ dàng quản lí lịch hẹn, theo dõi doanh thu và phân tích
@@ -38,7 +36,7 @@ const Business = () => {
               Hỗ trợ cửa hàng trong việc thu hút và giữ chân khách hàng.
             </div>
           </div>
-          <Link href='/login' className='btn btn-primary'>
+          <Link href='/register-business' className='btn btn-primary'>
             Tạo tài khoản doanh nghiệp
           </Link>
         </div>
