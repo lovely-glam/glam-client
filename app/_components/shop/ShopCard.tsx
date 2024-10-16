@@ -14,7 +14,13 @@ const ShopCard: React.FC<{
     <Link href={`/shops/${id}`} className='p-4'>
       <div className='card card-side bg-base-100 shadow-2xl border-black border-2 p-8'>
         <div className='flex justify-center items-center w-1/2'>
-          <Image src={image} width={200} height={200} alt='Card' />
+          <Image
+            className='h-40 w-40 object-contain'
+            src={image}
+            width={200}
+            height={200}
+            alt='Card'
+          />
         </div>
         <div className='card-body'>
           <h2 className='card-title text-primary italic font-bold'>{name}</h2>
