@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 import { MdOutlineShoppingCart } from 'react-icons/md';
 import { RiCalendar2Fill } from 'react-icons/ri';
 import NavLinks from './NavLinks';
+import { FiChevronDown } from 'react-icons/fi';
 
 const NavBar = () => {
   const [username, setUsername] = useState<any>(null);
   const [authenticated, setAuthenticated] = useState<any>(false);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
@@ -31,7 +33,18 @@ const NavBar = () => {
     }
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const isAuthenticated = () => {};
+
+  const handleLogout = () => {
+    // logout();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setAuthenticated(false); // Update state to rerender
+  };
 
   return (
     <nav className='p-4 px-8'>
@@ -53,13 +66,39 @@ const NavBar = () => {
           </Link>
           {authenticated ? (
             <div>
-              <Image
-                src={user?.avatarUrl ?? ''}
-                alt=''
-                width={60}
-                height={60}
-                className='rounded-full'
-              />
+              <div className='relative'>
+                <button
+                  onClick={toggleDropdown}
+                  className='flex items-center text-secondary hover:text-primary transition-colors cursor-pointer'
+                >
+                  <div className='w-20 h-20 object-contain flex justify-center items-center'>
+                    <Image
+                      src={user?.avatarUrl ?? ''}
+                      alt=''
+                      width={50}
+                      height={50}
+                      className='rounded-full'
+                    />
+                  </div>
+                  <FiChevronDown />
+                </button>
+                {showDropdown && (
+                  <div className='absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-2 border-2 z-10'>
+                    <Link
+                      href='/profile'
+                      className='text-sm block px-4 py-2 text-black hover:bg-gray-300'
+                    >
+                      Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className='text-sm block w-full text-left px-4 py-2 text-black hover:bg-gray-300'
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <Link

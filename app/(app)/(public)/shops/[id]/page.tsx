@@ -1,3 +1,4 @@
+'use client';
 import { RatingLarge } from '@/app/_components/shop/ShopCard';
 import ShopReview from '@/app/_components/shopDetail/ShopReview';
 import ShopService from '@/app/_components/shopDetail/ShopService';
