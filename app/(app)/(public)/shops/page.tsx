@@ -1,18 +1,29 @@
 'use client';
 import ShopCard from '@/app/_components/shop/ShopCard';
 import { getShops } from '@/app/_services/shopService';
+import classNames from 'classnames';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+const pages = [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }];
+
 const Shops = () => {
+  const searchParams = useSearchParams();
+  const page = searchParams.get('p');
+
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number.parseInt(page ?? '1')
+  );
   const [shops, setShops] = useState<any>(null);
 
   useEffect(() => {
-    fetchShops();
-  }, []);
+    fetchShops(currentPage);
+  }, [currentPage]);
 
-  const fetchShops = async () => {
+  const fetchShops = async (page: number) => {
     try {
-      const res = await getShops(0);
+      const res = await getShops(page - 1);
 
       if (res.status === 200) {
         setShops(res.data.content.content);
@@ -36,6 +47,26 @@ const Shops = () => {
             />
           );
         })}
+        <div className='w-full flex justify-center'>
+          <div className='join'>
+            {pages.map((pg: any) => {
+              return (
+                <Link
+                  key={pg.num}
+                  href={`/shops?p=${pg.num}`}
+                  className={classNames({
+                    'join-item': true,
+                    btn: true,
+                    'btn-active': Number.parseInt(page ?? '1') === pg.num,
+                  })}
+                  onClick={() => setCurrentPage(pg.num)}
+                >
+                  {pg.num}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     )
   );

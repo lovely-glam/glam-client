@@ -1,13 +1,11 @@
 'use client';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
-import NavLinks from './NavLinks';
-import Link from 'next/link';
-import { RiCalendar2Fill } from 'react-icons/ri';
-import { MdOutlineShoppingCart } from 'react-icons/md';
-import { getCurrentUsername } from '@/app/_services/localService';
-import { usePathname } from 'next/navigation';
 import { getCurrentUser } from '@/app/_services/userService';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { MdOutlineShoppingCart } from 'react-icons/md';
+import { RiCalendar2Fill } from 'react-icons/ri';
+import NavLinks from './NavLinks';
 
 const NavBar = () => {
   const [username, setUsername] = useState<any>(null);
@@ -50,7 +48,9 @@ const NavBar = () => {
         <NavLinks />
         <div className='flex space-x-10 items-center'>
           <RiCalendar2Fill size={25} />
-          <MdOutlineShoppingCart size={25} />
+          <Link href={'/payment'}>
+            <MdOutlineShoppingCart size={25} />
+          </Link>
           {authenticated ? (
             <div>
               <Image
