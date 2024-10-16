@@ -1,9 +1,33 @@
-import { Rating, RatingLarge } from '@/app/_components/shop/ShopCard';
+import { RatingLarge } from '@/app/_components/shop/ShopCard';
 import ShopReview from '@/app/_components/shopDetail/ShopReview';
 import ShopService from '@/app/_components/shopDetail/ShopService';
-import React from 'react';
+import { getShop } from '@/app/_services/shopService';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const ShopDetail = () => {
+  const [shops, setShops] = useState<any>(null);
+  const params = useParams();
+  const { id } = params;
+
+  useEffect(() => {
+    if (id) {
+      fetchShop(Number(id));
+    }
+  }, [id]);
+
+  const fetchShop = async (id: number) => {
+    try {
+      const res = await getShop(id);
+
+      if (res.status === 200) {
+        setShops(res.data.content.content);
+      }
+    } catch (error) {
+      console.error('Failed to fetch shop', error);
+    }
+  };
+
   return (
     <div className='p-10 flex flex-col space-y-6 px-40'>
       <div className='flex flex-col justify-center items-center space-y-4'>

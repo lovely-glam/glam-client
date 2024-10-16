@@ -1,3 +1,5 @@
+import { MdOutlineShoppingCart } from 'react-icons/md';
+
 const Payment = () => {
   return (
     <div className='pt-16 flex flex-col items-center justify-center'>
@@ -8,7 +10,7 @@ const Payment = () => {
           <div className='flex justify-around items-center text-center bg-secondary py-4 rounded-lg'>
             <div className='step'>
               <div className='step-icon bg-red-400 text-white rounded-full p-2'>
-                🛒
+                <MdOutlineShoppingCart size={27} className='pl-3' />
               </div>
               <span className='step-label text-red-400 font-semibold'>
                 Dịch vụ
