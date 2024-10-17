@@ -1,19 +1,20 @@
-'use client';
+'use client'; // Ensure it's a client component
+
 import { RatingLarge } from '@/app/_components/shop/ShopCard';
-import { getShop } from '@/app/_services/shopService'; // Assuming this fetches shop details.
-import { useParams } from 'next/navigation';
+import { getShop } from '@/app/_services/shopService';
+import { useParams, useRouter } from 'next/navigation'; // Use next/navigation for routing
 import { useEffect, useState } from 'react';
 
 const ShopDetail = () => {
   const [shop, setShop] = useState<any>(null);
   const [reviews, setReviews] = useState<any[]>([]);
   const params = useParams();
+  const router = useRouter();
   const { id } = params;
 
   useEffect(() => {
     if (id) {
       fetchShop(Number(id));
-      // fetchReviews(Number(id)); // Fetch reviews when shop ID is available.
     }
   }, [id]);
 
@@ -27,7 +28,6 @@ const ShopDetail = () => {
       console.error('Failed to fetch shop', error);
     }
   };
-
   // const fetchReviews = async (id: number) => {
   //   try {
   //     const reviewData = await getReviews(id); // Simulated API call
@@ -36,6 +36,15 @@ const ShopDetail = () => {
   //     console.error('Failed to fetch reviews', error);
   //   }
   // };
+
+  const handleBookService = (service: any) => {
+    // Navigate to Payment page with service ID and name
+    router.push(
+      `/payment?serviceId=${service.id}&serviceName=${encodeURIComponent(
+        service.name
+      )}&servicePrice=${service.basePrice}`
+    );
+  };
 
   if (!shop) {
     return <div>Loading...</div>;
@@ -81,7 +90,10 @@ const ShopDetail = () => {
                 {service.basePrice.toLocaleString()} VND
               </p>
             </div>
-            <button className='bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600'>
+            <button
+              onClick={() => handleBookService(service)}
+              className='bg-red-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-600'
+            >
               Book
             </button>
           </div>
