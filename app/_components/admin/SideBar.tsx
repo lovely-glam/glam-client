@@ -35,12 +35,20 @@ const SideBar = () => {
 
     if (token !== null && token !== undefined) {
       // setAuthenticated(true);
-      // TODO: get profile
-      const res = await getCurrentUser();
+      // TODO: get profile user server
+      try {
+        const res = await getCurrentUser();
 
-      if (res.status === 200) {
-        setUser(res.data.content);
-        setRole(getCurrentRole());
+        if (res.status === 200) {
+          setUser(res.data.content);
+          setRole(getCurrentRole());
+        }
+      } catch (error) {
+        try {
+          // TODO: get profile business server
+        } catch (error) {
+          // TODO: get profile admin server
+        }
       }
     }
   };
