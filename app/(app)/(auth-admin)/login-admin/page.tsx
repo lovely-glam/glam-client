@@ -1,5 +1,9 @@
 'use client';
-import { loginBusiness, loginCustomer } from '@/app/_services/authService';
+import {
+  loginBusiness,
+  loginCustomer,
+  loginSystem,
+} from '@/app/_services/authService';
 import { jwtDecode } from 'jwt-decode';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +16,7 @@ type LoginCredentials = {
   password: string;
 };
 
-const LoginBusiness = () => {
+const LoginAdmin = () => {
   const router = useRouter();
   const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
     username: '',
@@ -33,7 +37,7 @@ const LoginBusiness = () => {
     });
 
     try {
-      const res = await loginBusiness(loginCredentials);
+      const res = await loginSystem(loginCredentials);
 
       toast.update(loginToast, {
         render: 'Đăng nhập thành công!',
@@ -61,7 +65,7 @@ const LoginBusiness = () => {
 
         // redirect to dashboard
         if (localStorage.getItem('accessToken') !== undefined) {
-          window.location.href = '/business/management';
+          window.location.href = '/admin';
         }
       }
     } catch (error) {
@@ -85,7 +89,7 @@ const LoginBusiness = () => {
     <div className='w-full h-1/3 p-8 flex justify-center'>
       <ToastContainer />
       <div className='flex flex-col space-y-4 items-center p-4 w-1/4 h-3/4 bg-white rounded-md drop-shadow-xl'>
-        <div className='font-bold text-xl pt-4'>Đăng nhập doanh nghiệp</div>
+        <div className='font-bold text-xl pt-4'>Đăng nhập hệ thống</div>
         <div className='flex flex-col space-y-2 w-full'>
           <div>Username</div>
           <input
@@ -117,17 +121,17 @@ const LoginBusiness = () => {
         <button className='btn btn-primary px-8' onClick={() => handleLogin()}>
           Đăng nhập
         </button>
-        <div className='flex justify-between w-full'>
+        {/* <div className='flex justify-between w-full'>
           <Link href='/register-business' className='text-info'>
             Đăng ký
           </Link>
           <Link href='/forgot-password' className='text-info'>
             Quên mật khẩu
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default LoginBusiness;
+export default LoginAdmin;
