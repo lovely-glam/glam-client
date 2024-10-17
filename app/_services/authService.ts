@@ -14,3 +14,6 @@ export const loginCustomer = (data: any) =>
 
 export const loginBusiness = (data: any) =>
   axiosPost(baseUrl + '/auth/nailer', data, '');
+
+export const loginSystem = (data: any) =>
+  axiosPost(baseUrl + '/auth/system', data, '');
