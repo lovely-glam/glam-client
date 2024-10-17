@@ -6,16 +6,15 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [currentMonth, setCurrentMonth] = useState<number>(
     new Date().getMonth()
-  ); // Store current month (0-indexed)
+  );
   const [currentYear, setCurrentYear] = useState<number>(
     new Date().getFullYear()
   ); // Store current year
 
   const todayDate = new Date();
-  const currentMonthToday = todayDate.getMonth(); // Today's month (0-indexed)
-  const currentYearToday = todayDate.getFullYear(); // Today's year
+  const currentMonthToday = todayDate.getMonth();
+  const currentYearToday = todayDate.getFullYear();
 
-  // Calculate the date 30 days from today
   const endDate = new Date();
   endDate.setDate(todayDate.getDate() + 30);
 
@@ -23,74 +22,64 @@ const Calendar = () => {
   const endYear = endDate.getFullYear();
 
   useEffect(() => {
-    // Automatically select today's date when the component mounts
     const today = new Date().getDate();
     setSelectedDate(today);
   }, []);
 
-  // Function to get the number of days in a month
   const getDaysInMonth = (month: number, year: number) => {
-    return new Date(year, month + 1, 0).getDate(); // Get last day of the month
+    return new Date(year, month + 1, 0).getDate();
   };
 
-  // Get the first day of the month (0 = Sunday, 1 = Monday, etc.)
   const getFirstDayOfMonth = (month: number, year: number) => {
     return new Date(year, month, 1).getDay();
   };
 
-  // Function to navigate to the previous month
   const handlePreviousMonth = () => {
     if (currentMonth === 0) {
-      setCurrentMonth(11); // Go to December of the previous year
+      setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
     } else {
       setCurrentMonth(currentMonth - 1);
     }
   };
 
-  // Function to navigate to the next month
   const handleNextMonth = () => {
     if (currentMonth === 11) {
-      setCurrentMonth(0); // Go to January of the next year
+      setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
     } else {
       setCurrentMonth(currentMonth + 1);
     }
   };
 
-  // Check if a date is selectable (within 30 days from today)
   const isDateSelectable = (day: number, month: number, year: number) => {
     const date = new Date(year, month, day);
     const today = new Date();
     const thirtyDaysFromToday = new Date();
     thirtyDaysFromToday.setDate(today.getDate() + 30);
-    return date >= today && date <= thirtyDaysFromToday; // Only select dates within 30 days from today
+    return date >= today && date <= thirtyDaysFromToday;
   };
 
-  // Render the calendar days based on the current month and year
   const renderCalendar = () => {
-    const daysInMonth = getDaysInMonth(currentMonth, currentYear); // Get number of days in the current month
-    const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear); // Get the first day of the current month (0 = Sunday)
+    const daysInMonth = getDaysInMonth(currentMonth, currentYear);
+    const firstDayOfMonth = getFirstDayOfMonth(currentMonth, currentYear);
 
     const previousMonthDays = getDaysInMonth(
       currentMonth === 0 ? 11 : currentMonth - 1,
       currentMonth === 0 ? currentYear - 1 : currentYear
-    ); // Get the number of days in the previous month
+    );
     const today = todayDate.getDate();
 
-    // Create an array of days for the previous month that should be shown (grayed out)
     const daysFromPreviousMonth = Array.from(
       { length: firstDayOfMonth },
       (_, i) => previousMonthDays - firstDayOfMonth + i + 1
     );
 
-    // Create an array of days for the current month
     const currentMonthDays = Array.from(
       { length: daysInMonth },
       (_, i) => i + 1
     );
 
-    // Create an array of days for the next month to fill out the last row
     const daysFromNextMonth = Array.from(
       {
         length:
@@ -158,7 +147,11 @@ const Calendar = () => {
             <div
               key={`next-${day}`}
               className={`p-2 rounded-full ${
-                isSelectable
+                selectedDate === day &&
+                currentMonth === currentMonthToday &&
+                currentYear === currentYearToday
+                  ? 'bg-red-500 text-white'
+                  : isSelectable
                   ? 'hover:bg-gray-200 cursor-pointer'
                   : 'text-gray-400'
               }`}
@@ -182,7 +175,7 @@ const Calendar = () => {
           disabled={
             currentMonth === currentMonthToday &&
             currentYear === currentYearToday
-          } // Disable the button if it's the current month
+          }
         >
           ← Tháng trước
         </button>
@@ -196,7 +189,7 @@ const Calendar = () => {
           disabled={
             currentYear > endYear ||
             (currentYear === endYear && currentMonth >= endMonth)
-          } // Disable if navigating past the 30-day window
+          }
         >
           Tháng sau →
         </button>
