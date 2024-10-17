@@ -17,7 +17,6 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <NavBar />
         <div className='min-h-screen bg-gray-100 flex'>
           <SideBar />
           {children}
