@@ -11,7 +11,7 @@ const customerLinks = [
 ];
 
 const businessLinks = [
-  { title: 'Trang chủ', path: '/business/' },
+  { title: 'Trang chủ', path: '/business/profile' },
   { title: 'Thống kê', path: '/business/dashboard' },
   { title: 'Khách hàng', path: '/business/customers' },
 ];
