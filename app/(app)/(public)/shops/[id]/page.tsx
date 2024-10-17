@@ -1,5 +1,5 @@
-'use client'; // Ensure it's a client component
-
+"use client"
+import ChatWindow from '@/app/_components/chat/ChatWindow';
 import { RatingLarge } from '@/app/_components/shop/ShopCard';
 import { getShop } from '@/app/_services/shopService';
 import { useParams, useRouter } from 'next/navigation'; // Use next/navigation for routing
@@ -136,6 +136,7 @@ const ShopDetail = () => {
           ))}
         </div>
       </div>
+      <ChatWindow shopProfileId={Number(id)}/>
     </div>
   );
 };
