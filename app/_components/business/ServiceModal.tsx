@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 export type ServiceModel = {
     id?: number;
-    serviceName: string;
+    name: string;
     description: string;
     duration: number;
-    price: number;
+    basePrice: number;
 }
 
 interface ServiceModalProps {
@@ -17,16 +17,25 @@ interface ServiceModalProps {
 }
 
 const ServiceModal: React.FC<ServiceModalProps> = ({ mode, initialData, onSave, isOpen, onClose }) => {
-    const [serviceName, setServiceName] = useState<string>(initialData?.serviceName || '');
+    const [serviceName, setServiceName] = useState<string>(initialData?.name || '');
     const [duration, setDuration] = useState<number>(initialData?.duration || 0);
-    const [price, setPrice] = useState<number>(initialData?.price || 0);
+    const [price, setPrice] = useState<number>(initialData?.basePrice || 0);
     const [description, setDescription] = useState<string>(initialData?.description || '');
     const handleSave = () => {
         if (mode == "edit" && initialData?.id) {
             const data = {
                 id: initialData.id,
-                serviceName,
-                price,
+                name: serviceName,
+                basePrice: price,
+                description,
+                duration
+            }
+            onSave(data);
+        } else {
+            const data = {
+                id: 1,
+                name: serviceName,
+                basePrice: price,
                 description,
                 duration
             }
@@ -35,9 +44,9 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ mode, initialData, onSave, 
     };
     useEffect(() => {
         if (mode === 'edit' && initialData) {
-            setServiceName(initialData.serviceName);
+            setServiceName(initialData.name);
             setDuration(initialData.duration);
-            setPrice(initialData.price);
+            setPrice(initialData.basePrice);
         }
     }, [isOpen])
 
