@@ -1,4 +1,4 @@
-import { axiosGet, axiosPost } from './baseService';
+import { axiosGet, axiosPost, axiosPut } from './baseService';
 
 var token: string | null = '';
 
@@ -10,3 +10,6 @@ const baseUrl = process.env.NEXT_PUBLIC_USER_HOST;
 
 export const getCurrentUser = () =>
   axiosGet(baseUrl + '/profiles/me', { headers: { Authorization: token } });
+
+export const updateUser = (data: any) =>
+  axiosPut(baseUrl + '/profiles', data, { headers: { Authorization: token } });

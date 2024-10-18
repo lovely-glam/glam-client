@@ -1,9 +1,10 @@
 'use client';
 import SideBar from '@/app/_components/admin/SideBar';
-import { getCurrentUser } from '@/app/_services/userService';
+import { getCurrentUser, updateUser } from '@/app/_services/userService';
 import { uploadFile } from '@/app/_services/workerService';
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Profile = () => {
   const [user, setUser] = useState<any>(null);
@@ -39,19 +40,41 @@ const Profile = () => {
       if (file.type === 'image/png') {
         console.log('File is valid PNG:', file);
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
         const res = await uploadFile(formData);
-        console.log('Hi' + res);
+        setUser({ ...user, avatarUrl: res.data.content });
+
+        // update avatarUrl
+        const updateRes = await updateUser({
+          ...user,
+          avatarUrl: res.data.content,
+        });
+        console.log(updateRes);
+
+        // show toast message
+        if (updateRes.status === 200)
+          toast.success('Đổi ảnh thành công!', {
+            position: 'bottom-right',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
       } else {
         alert('Please upload a PNG image.');
       }
     }
   };
 
+  console.log(user);
+
   const changeInformation = async () => {};
 
   return (
     <div className='flex'>
+      <ToastContainer />
       <SideBar />
       {user && (
         <div className='flex w-full p-12 flex-col space-y-8'>
@@ -62,7 +85,7 @@ const Profile = () => {
             <div className='space-y-4 flex flex-col items-center mt-8'>
               <div className='w-36 h-36 rounded-full overflow-hidden'>
                 <Image
-                  src={user?.avatarUrl || '/default-avatar.png'}
+                  src={user?.avatarUrl || ''}
                   width={1024}
                   height={1024}
                   alt='Profile avatar'
