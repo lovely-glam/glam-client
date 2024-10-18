@@ -1,10 +1,8 @@
 'use client';
-import { getCurrentRole } from '@/app/_services/localService';
-import { getCurrentUser } from '@/app/_services/userService';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaHome, FaUser } from 'react-icons/fa'; // You can use react-icons for icons
-
+import { FaBars, FaBuilding, FaCogs, FaUser } from 'react-icons/fa';
+import {checkUserRole} from '@/app/_services/tokenService';
 const customerLinks = [
   { title: 'Thông tin', path: '/profile' },
   { title: 'Bảo mật', path: '/securiy' },
@@ -23,72 +21,74 @@ const adminLinks = [
 ];
 
 const SideBar = () => {
-  const [user, setUser] = useState<any>(null);
   const [role, setRole] = useState<any>(null);
 
   useEffect(() => {
-    checkUser();
+    const getUserRole = async () => {
+      var role = await checkUser();
+      setRole(role);
+    }
+    getUserRole();
   }, []);
 
-  const checkUser = async () => {
+  const checkUser = async (): Promise<string> => {
     const token = localStorage.getItem('accessToken');
-
-    if (token !== null && token !== undefined) {
-      // setAuthenticated(true);
-      // TODO: get profile user server
-      try {
-        const res = await getCurrentUser();
-
-        if (res.status === 200) {
-          setUser(res.data.content);
-          setRole(getCurrentRole());
-        }
-      } catch (error) {
-        try {
-          // TODO: get profile business server
-        } catch (error) {
-          // TODO: get profile admin server
-        }
-      }
-    }
+    const role = await checkUserRole(token);
+    console.log(role);
+    return role.role;
   };
+  const [isExpanded, setIsExpanded] = useState(false);
 
+  const toggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
   return (
-    <div className='bg-primary text-white h-screen w-2 md:w-32 flex flex-col items-center md:items-start p-4 py-12 rounded-tr-[90px]'>
-      <div className='flex flex-col space-y-6'>
-        {(role === 'ROLE_USER' &&
-          customerLinks.map((link) => (
+    <div className={`bg-gradient-to-b from-[#d46a6a] via-[#a23d3d] to-[#7e2f2f] text-white h-screen ${isExpanded ? 'w-64' : 'w-20'} flex flex-col items-center md:items-start p-4 py-12 rounded-tr-3xl shadow-lg transition-all duration-300`}>
+      <button
+        className="text-white flex items-center justify-center space-x-2 mb-8 w-full"
+        onClick={toggleSidebar}
+      >
+        {isExpanded ? (
+        <img src="/icon.ico" alt="Icon" className="w-10 h-10" />
+    ) : <FaBars size={24} />}
+        {isExpanded && <span className="text-lg font-semibold">Lovely Glam</span>}
+      </button>
+
+
+      {/* Links */}
+      <div className="flex flex-col space-y-8 w-full">
+        {(role === 'ROLE_USER' && customerLinks.map((link) => (
+          <Link
+            key={link.title}
+            href={link.path}
+            className="flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200"
+          >
+            <FaUser size={24} className="text-white" />
+            {isExpanded && <span className="text-lg">{link.title}</span>}
+          </Link>
+        ))) ||
+
+          /* Business Links */
+          (role === 'ROLE_NAILER' && businessLinks.map((link) => (
             <Link
               key={link.title}
               href={link.path}
-              className='flex items-center space-x-3 hover:bg-red-700 p-2 rounded-lg w-full'
+              className="flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200"
             >
-              <FaUser size={20} />
-              <span className='hidden md:inline'>{link.title}</span>
+              <FaBuilding size={24} className="text-white" />
+              {isExpanded && <span className="text-lg">{link.title}</span>}
             </Link>
           ))) ||
-          (role === 'ROLE_BUSINESS' &&
-            businessLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.path}
-                className='flex items-center space-x-3 hover:bg-red-700 p-2 rounded-lg w-full'
-              >
-                <FaUser size={20} />
-                <span className='hidden md:inline'>{link.title}</span>
-              </Link>
-            ))) ||
-          (role === 'ROLE_ADMIN' &&
-            adminLinks.map((link) => (
-              <Link
-                key={link.title}
-                href={link.path}
-                className='flex items-center space-x-3 hover:bg-red-700 p-2 rounded-lg w-full'
-              >
-                <FaUser size={20} />
-                <span className='hidden md:inline'>{link.title}</span>
-              </Link>
-            )))}
+          (role === 'ROLE_ADMIN' && adminLinks.map((link) => (
+            <Link
+              key={link.title}
+              href={link.path}
+              className="flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200"
+            >
+              <FaCogs size={24} className="text-white" />
+              {isExpanded && <span className="text-lg">{link.title}</span>}
+            </Link>
+          )))}
       </div>
     </div>
   );
