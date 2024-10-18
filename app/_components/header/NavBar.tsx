@@ -44,6 +44,7 @@ const NavBar = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     setAuthenticated(false); // Update state to rerender
+    window.location.href = '/';
   };
 
   return (
