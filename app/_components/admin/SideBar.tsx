@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaBars, FaBuilding, FaCogs, FaHome, FaTimes, FaUser } from 'react-icons/fa';
+import { FaBars, FaBuilding, FaCogs, FaUser } from 'react-icons/fa';
 import {checkUserRole} from '@/app/_services/tokenService';
 const customerLinks = [
   { title: 'Thông tin', path: '/profile' },
