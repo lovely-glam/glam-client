@@ -4,7 +4,7 @@ import { getShops } from '@/app/_services/shopService';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const pages = [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }];
 
@@ -27,6 +27,7 @@ const Shops = () => {
 
       if (res.status === 200) {
         setShops(res.data.content.content);
+        console.log(shops);
       }
     } catch (error) {}
   };
