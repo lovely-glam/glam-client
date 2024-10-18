@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import SideBar from '../_components/admin/SideBar';
 import Footer from '../_components/footer/Footer';
-import NavBar from '../_components/header/NavBar';
 import '../globals.css';
 
 export const metadata: Metadata = {
