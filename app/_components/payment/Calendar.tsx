@@ -2,36 +2,40 @@
 
 import { useEffect, useState } from 'react';
 
-const Calendar = () => {
+interface CalendarProps {
+  onSelectDate: (date: Date) => void; // Add a prop type for the date selection callback
+}
+
+const Calendar: React.FC<CalendarProps> = ({ onSelectDate }) => {
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
   const [currentMonth, setCurrentMonth] = useState<number>(
-    new Date().getMonth()
+    new Date().getUTCMonth()
   );
   const [currentYear, setCurrentYear] = useState<number>(
-    new Date().getFullYear()
-  ); // Store current year
+    new Date().getUTCFullYear()
+  );
 
-  const todayDate = new Date();
-  const currentMonthToday = todayDate.getMonth();
-  const currentYearToday = todayDate.getFullYear();
+  const todayDate = new Date(new Date().getTime() + 7 * 60 * 60 * 1000);
+  const currentMonthToday = todayDate.getUTCMonth();
+  const currentYearToday = todayDate.getUTCFullYear();
 
-  const endDate = new Date();
-  endDate.setDate(todayDate.getDate() + 30);
+  const endDate = new Date(todayDate);
+  endDate.setUTCDate(todayDate.getUTCDate() + 30);
 
-  const endMonth = endDate.getMonth();
-  const endYear = endDate.getFullYear();
+  const endMonth = endDate.getUTCMonth();
+  const endYear = endDate.getUTCFullYear();
 
   useEffect(() => {
-    const today = new Date().getDate();
+    const today = todayDate.getUTCDate();
     setSelectedDate(today);
   }, []);
 
   const getDaysInMonth = (month: number, year: number) => {
-    return new Date(year, month + 1, 0).getDate();
+    return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
   };
 
   const getFirstDayOfMonth = (month: number, year: number) => {
-    return new Date(year, month, 1).getDay();
+    return new Date(Date.UTC(year, month, 1)).getUTCDay();
   };
 
   const handlePreviousMonth = () => {
@@ -53,11 +57,17 @@ const Calendar = () => {
   };
 
   const isDateSelectable = (day: number, month: number, year: number) => {
-    const date = new Date(year, month, day);
-    const today = new Date();
-    const thirtyDaysFromToday = new Date();
-    thirtyDaysFromToday.setDate(today.getDate() + 30);
+    const date = new Date(Date.UTC(year, month, day));
+    const today = new Date(todayDate);
+    const thirtyDaysFromToday = new Date(today);
+    thirtyDaysFromToday.setUTCDate(today.getUTCDate() + 30);
     return date >= today && date <= thirtyDaysFromToday;
+  };
+
+  const handleDateClick = (day: number) => {
+    const selected = new Date(Date.UTC(currentYear, currentMonth, day));
+    setSelectedDate(day);
+    onSelectDate(selected); // Call the callback when a date is selected
   };
 
   const renderCalendar = () => {
@@ -68,7 +78,6 @@ const Calendar = () => {
       currentMonth === 0 ? 11 : currentMonth - 1,
       currentMonth === 0 ? currentYear - 1 : currentYear
     );
-    const today = todayDate.getDate();
 
     const daysFromPreviousMonth = Array.from(
       { length: firstDayOfMonth },
@@ -128,7 +137,7 @@ const Calendar = () => {
                   ? 'hover:bg-gray-200 cursor-pointer'
                   : 'text-gray-400'
               }`}
-              onClick={() => isSelectable && setSelectedDate(day)}
+              onClick={() => isSelectable && handleDateClick(day)}
             >
               {day}
             </div>
@@ -136,31 +145,11 @@ const Calendar = () => {
         })}
 
         {/* Render days from the next month (grayed out) */}
-        {daysFromNextMonth.map((day) => {
-          const isSelectable = isDateSelectable(
-            day,
-            currentMonth + 1,
-            currentYear
-          );
-
-          return (
-            <div
-              key={`next-${day}`}
-              className={`p-2 rounded-full ${
-                selectedDate === day &&
-                currentMonth === currentMonthToday &&
-                currentYear === currentYearToday
-                  ? 'bg-red-500 text-white'
-                  : isSelectable
-                  ? 'hover:bg-gray-200 cursor-pointer'
-                  : 'text-gray-400'
-              }`}
-              onClick={() => isSelectable && setSelectedDate(day)}
-            >
-              {day}
-            </div>
-          );
-        })}
+        {daysFromNextMonth.map((day) => (
+          <div key={`next-${day}`} className='p-2 rounded-full text-gray-400'>
+            {day}
+          </div>
+        ))}
       </div>
     );
   };
@@ -181,7 +170,6 @@ const Calendar = () => {
         </button>
         <h2 className='text-lg font-bold'>
           {String(currentMonth + 1).padStart(2, '0')}/{currentYear}{' '}
-          {/* Display as mm/yyyy */}
         </h2>
         <button
           className='btn btn-sm'

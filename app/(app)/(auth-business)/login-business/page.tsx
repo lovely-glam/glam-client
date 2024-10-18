@@ -61,7 +61,7 @@ const LoginBusiness = () => {
 
         // redirect to dashboard
         if (localStorage.getItem('accessToken') !== undefined) {
-          window.location.href = '/business/management';
+          window.location.href = '/business/dashboard';
         }
       }
     } catch (error) {
