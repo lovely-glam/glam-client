@@ -10,5 +10,7 @@ const baseUrl = process.env.NEXT_PUBLIC_WORKER_HOST;
 
 export const uploadFile = (file: any) =>
   axiosPost(baseUrl + '/files/upload', file, {
-    headers: { Authorization: token },
+    headers: { Authorization: token,
+      'Content-Type': 'multipart/form-data'
+    },
   });

@@ -38,7 +38,9 @@ const Profile = () => {
     if (file) {
       if (file.type === 'image/png') {
         console.log('File is valid PNG:', file);
-        const res = await uploadFile(file);
+        const formData = new FormData();
+        formData.append("file", file);
+        const res = await uploadFile(formData);
         console.log('Hi' + res);
       } else {
         alert('Please upload a PNG image.');
