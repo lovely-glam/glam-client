@@ -72,13 +72,13 @@ const NavBar = () => {
                   onClick={toggleDropdown}
                   className='flex items-center text-secondary hover:text-primary transition-colors cursor-pointer'
                 >
-                  <div className='w-20 h-20 object-contain flex justify-center items-center'>
+                  <div className='w-16 h-16 rounded-full overflow-hidden'>
                     <Image
                       src={user?.avatarUrl ?? ''}
                       alt=''
-                      width={50}
-                      height={50}
-                      className='rounded-full'
+                      width={1024}
+                      height={1024}
+                      className='w-full h-full object-cover'
                     />
                   </div>
                   <FiChevronDown />

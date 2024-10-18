@@ -22,7 +22,6 @@ const Profile = () => {
       const res: any = await getCurrentUser();
 
       if (res.status === 200) {
-        console.log(res.data);
         setUser(res.data.content);
       }
     }
@@ -63,12 +62,10 @@ const Profile = () => {
             progress: undefined,
           });
       } else {
-        alert('Please upload a PNG image.');
+        alert('Vui lòng sử dụng hình ảnh định dạng PNG.');
       }
     }
   };
-
-  console.log(user);
 
   const changeInformation = async () => {};
 
