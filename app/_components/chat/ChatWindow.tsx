@@ -148,10 +148,10 @@ const ChatWindow: React.FC<{ shopProfileId: number }> = ({ shopProfileId }) => {
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`my-2 p-3 rounded-lg max-w-[66%] ${msg.from === "bot" ? "bg-gray-200 self-start" : "bg-green-200 self-end ml-auto"
+                className={`my-2 p-3 rounded-lg max-w-[66%] ${msg.role === "ROLE_SHOP" ? "bg-gray-200 self-start" : "bg-green-200 self-end ml-auto"
                   }`}
                 style={{
-                  alignSelf: msg.from === "ROLE_USER" ? "flex-start" : "flex-end",
+                  alignSelf: msg.role === "ROLE_SHOP" ? "flex-start" : "flex-end",
                   width: "fit-content",
                 }}
               >
