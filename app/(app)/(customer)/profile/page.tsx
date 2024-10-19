@@ -8,6 +8,9 @@ import { toast, ToastContainer } from 'react-toastify';
 
 const Profile = () => {
   const [user, setUser] = useState<any>(null);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -23,6 +26,9 @@ const Profile = () => {
 
       if (res.status === 200) {
         setUser(res.data.content);
+        setFullName(res.data.content.fullName);
+        setEmail(res.data.content.email);
+        setUsername(res.data.content.username);
       }
     }
   };
@@ -67,7 +73,46 @@ const Profile = () => {
     }
   };
 
-  const changeInformation = async () => {};
+  const changeInformation = async () => {
+    try {
+      const updatedUser = {
+        ...user,
+        fullName,
+        email,
+        username,
+      };
+
+      const res = await updateUser(updatedUser);
+
+      if (res.status === 200) {
+        setUser(updatedUser);
+
+        // show success toast
+        toast.success('Cập nhật thông tin thành công!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        throw new Error('Cập nhật thông tin thất bại');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error('Có lỗi xảy ra. Vui lòng thử lại!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
 
   return (
     <div className='flex'>
@@ -108,6 +153,7 @@ const Profile = () => {
                   placeholder='Type here'
                   className='input input-bordered w-80 font-normal'
                   defaultValue={user.fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
               <div className='space-y-2'>
@@ -117,6 +163,7 @@ const Profile = () => {
                   placeholder='Type here'
                   className='input input-bordered w-full max-w-xs font-normal'
                   defaultValue={user.email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className='space-y-2'>
@@ -126,10 +173,13 @@ const Profile = () => {
                   placeholder='Type here'
                   className='input input-bordered w-full max-w-xs font-normal'
                   defaultValue={user.username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className='mt-8 flex justify-end w-full'>
-                <button className='btn btn-primary'>Chỉnh sửa thông tin</button>
+                <button className='btn btn-primary' onClick={changeInformation}>
+                  Chỉnh sửa thông tin
+                </button>
               </div>
             </div>
           </div>
