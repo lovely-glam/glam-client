@@ -73,6 +73,15 @@ const Profile = () => {
     }
   };
 
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   const changeInformation = async () => {
     try {
       const updatedUser = {
@@ -127,7 +136,11 @@ const Profile = () => {
             <div className='space-y-4 flex flex-col items-center mt-8'>
               <div className='w-36 h-36 rounded-full overflow-hidden'>
                 <Image
-                  src={user?.avatarUrl || ''}
+                  src={
+                    isValidUrl(user?.avatarUrl ?? '')
+                      ? user?.avatarUrl
+                      : '/icon.ico'
+                  }
                   width={1024}
                   height={1024}
                   alt='Profile avatar'

@@ -12,8 +12,6 @@ if (typeof window !== 'undefined') {
     decodedToken = jwtDecode(token as any);
 }
 
-console.log(user);
-
 let username = null;
 let role = null;
 let tokenType = null;
@@ -30,5 +28,9 @@ export const getCurrentUsername = () => {
 };
 
 export const getCurrentRole = () => {
-  return role;
+  if (role === undefined || role === null || role === '') {
+    return 'ROLE_GUEST';
+  } else {
+    return role;
+  }
 };
