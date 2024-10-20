@@ -2,23 +2,30 @@
 import { checkUserRole } from '@/app/_services/tokenService';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaBars, FaBuilding, FaCogs, FaUser } from 'react-icons/fa';
-const customerLinks = [
-  { title: 'Thông tin', path: '/profile' },
-  { title: 'Bảo mật', path: '/securiy' },
+import { IconType } from 'react-icons';
+import { FaBars, FaBuilding, FaChartBar, FaChartLine, FaCogs, FaComment, FaHome, FaLock, FaUser, FaUserAlt, FaUsers } from 'react-icons/fa';
+const customerLinks: SideBarLink[] = [
+  { title: 'Thông tin', path: '/profile', icon: FaUserAlt },
+  { title: 'Bảo mật', path: '/security', icon: FaLock },
 ];
 
-const businessLinks = [
-  { title: 'Trang chủ', path: '/business/profile' },
-  { title: 'Thống kê', path: '/business/dashboard' },
-  { title: 'Khách hàng', path: '/business/customers' },
-  { title: 'Chat', path: '/business/chat'}
-];
+type SideBarLink = {
+  title: string;
+  path: string;
+  icon: IconType;
+}
 
-const adminLinks = [
-  { title: 'Thống kê', path: '/admin/dashboard' },
-  { title: 'Doanh nghiệp', path: '/admin/business' },
-  { title: 'Khách hàng', path: '/admin/customers' },
+const businessLinks: SideBarLink[] = [
+  { title: 'Trang chủ', path: '/business/profile', icon: FaHome },
+  { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
+  { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
+  { title: 'Chat', path: '/business/chat', icon: FaComment }
+]
+
+const adminLinks: SideBarLink[] = [
+  { title: 'Thống kê', path: '/admin/dashboard', icon: FaChartLine },
+  { title: 'Doanh nghiệp', path: '/admin/business', icon: FaBuilding },
+  { title: 'Khách hàng', path: '/admin/customers', icon: FaUser },
 ];
 
 const SideBar = () => {
@@ -45,9 +52,8 @@ const SideBar = () => {
   };
   return (
     <div
-      className={`bg-gradient-to-b from-[#d46a6a] via-[#a23d3d] to-[#7e2f2f] text-white h-screen ${
-        isExpanded ? 'w-64' : 'w-20'
-      } flex flex-col items-center md:items-start p-4 py-12 rounded-tr-3xl shadow-lg transition-all duration-300`}
+      className={`bg-gradient-to-b from-[#d46a6a] via-[#a23d3d] to-[#7e2f2f] text-white h-screen ${isExpanded ? 'w-64' : 'w-20'
+        } flex flex-col items-center md:items-start p-4 py-12 rounded-tr-3xl shadow-lg transition-all duration-300`}
     >
       <button
         className='text-white flex items-center justify-center space-x-2 mb-8 w-full'
@@ -70,13 +76,12 @@ const SideBar = () => {
             <Link
               key={link.title}
               href={link.path}
-              className='flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
+              className="flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200"
             >
-              <FaUser size={24} className='text-white' />
-              {isExpanded && <span className='text-lg'>{link.title}</span>}
+              <link.icon size={24} className="text-white" />
+              {isExpanded && <span className="text-lg">{link.title}</span>}
             </Link>
           ))) ||
-          /* Business Links */
           (role === 'ROLE_NAILER' &&
             businessLinks.map((link) => (
               <Link
@@ -84,7 +89,7 @@ const SideBar = () => {
                 href={link.path}
                 className='flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
               >
-                <FaBuilding size={24} className='text-white' />
+                <link.icon size={24} className='text-white'/>
                 {isExpanded && <span className='text-lg'>{link.title}</span>}
               </Link>
             ))) ||
@@ -95,7 +100,7 @@ const SideBar = () => {
                 href={link.path}
                 className='flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
               >
-                <FaCogs size={24} className='text-white' />
+                <link.icon size={24} className='text-white'/>
                 {isExpanded && <span className='text-lg'>{link.title}</span>}
               </Link>
             )))}

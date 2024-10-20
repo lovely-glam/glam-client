@@ -13,3 +13,5 @@ if (typeof window !== 'undefined') {
 export const getProfiles = ():Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosGet(baseUrl + '/profiles/me', {headers: {Authorization: token}});
 
 export const updateProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPut(baseUrl + `/nail-services/${data.id}`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});
+
+export const createProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPost(baseUrl + `/nail-services`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});

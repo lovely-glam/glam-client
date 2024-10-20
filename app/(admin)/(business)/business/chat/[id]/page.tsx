@@ -70,7 +70,6 @@ const ChatBusiness = () => {
         setChatSocket(client);
         client.subscribe(`/topic/messages/${roomId}`, (message) => {
           const msg = JSON.parse(message.body);
-          console.log("Received message:", msg);
           setMessages((prevMessages) => {
             const existingIds = new Set(prevMessages.map(existingMsg => existingMsg.id));
             if (!existingIds.has(msg.id)) {

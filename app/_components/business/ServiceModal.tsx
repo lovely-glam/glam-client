@@ -9,7 +9,7 @@ export type ServiceModel = {
 }
 
 interface ServiceModalProps {
-    mode: 'create' | 'edit';
+    mode: 'create' | 'edit' | 'none';
     isOpen: boolean;
     initialData?: ServiceModel;
     onSave: (service: ServiceModel) => void;
@@ -47,6 +47,12 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ mode, initialData, onSave, 
             setServiceName(initialData.name);
             setDuration(initialData.duration);
             setPrice(initialData.basePrice);
+            setDescription(initialData.description);
+        }else {
+            setServiceName('');
+            setDuration(0);
+            setPrice(0);
+            setDescription('');
         }
     }, [isOpen])
 
@@ -88,7 +94,6 @@ const ServiceModal: React.FC<ServiceModalProps> = ({ mode, initialData, onSave, 
                         <input
                             className="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-pink-500"
                             value={description}
-                            type="text"
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
