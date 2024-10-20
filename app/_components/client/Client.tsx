@@ -16,6 +16,7 @@ const routes = [
   { path: '/contact', perm: ['ROLE_GUEST', 'ROLE_USER'] },
   { path: '/payment', perm: ['ROLE_USER'] },
   { path: '/shops', perm: ['ROLE_GUEST', 'ROLE_USER'] },
+  { path: '/shops/*', perm: ['ROLE_GUEST', 'ROLE_USER'] },
   { path: '/business/profile', perm: ['ROLE_NAILER'] },
   { path: '/business/dashboard', perm: ['ROLE_NAILER'] },
   { path: '/business/chat', perm: ['ROLE_NAILER'] },
