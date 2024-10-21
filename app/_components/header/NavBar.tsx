@@ -47,6 +47,15 @@ const NavBar = () => {
     window.location.href = '/';
   };
 
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
   return (
     <nav className='p-4 px-8'>
       <div className='flex justify-between items-center w-full'>
@@ -74,7 +83,11 @@ const NavBar = () => {
                 >
                   <div className='w-16 h-16 rounded-full overflow-hidden'>
                     <Image
-                      src={user?.avatarUrl ?? ''}
+                      src={
+                        isValidUrl(user?.avatarUrl ?? '')
+                          ? user?.avatarUrl
+                          : '/icon.ico'
+                      }
                       alt=''
                       width={1024}
                       height={1024}
