@@ -27,7 +27,6 @@ type ChatMessageRequest = {
 const webSocketUrl = (): string => {
   var socketUrl: string | undefined = process.env.NEXT_PUBLIC_WEBSOCKET_HOST;
   if (socketUrl) {
-    console.log(socketUrl);
     const result = socketUrl.replace(/^https/, 'wss').replace(/^http/, 'ws');
     return result + '/ws';
   }
@@ -52,7 +51,6 @@ const ChatWindow: React.FC<{ shopProfileId: number }> = ({ shopProfileId }) => {
         setChatSocket(client);
         client.subscribe(`/topic/messages/${room?.id}`, (message) => {
           const msg = JSON.parse(message.body);
-          console.log("Received message:", msg);
           setMessages((prevMessages) => {
             const existingIds = new Set(prevMessages.map(existingMsg => existingMsg.id));
             if (!existingIds.has(msg.id)) {
@@ -92,7 +90,6 @@ const ChatWindow: React.FC<{ shopProfileId: number }> = ({ shopProfileId }) => {
       };
       const handleUp = async () => {
         const roomInfo = await fetchRoomInformation();
-        console.log(roomInfo);
         if (roomInfo) {
           setRoom(roomInfo);
         }

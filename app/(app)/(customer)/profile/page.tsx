@@ -43,7 +43,6 @@ const Profile = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.type === 'image/png') {
-        console.log('File is valid PNG:', file);
         const formData = new FormData();
         formData.append('file', file);
         const res = await uploadFile(formData);
@@ -54,7 +53,6 @@ const Profile = () => {
           ...user,
           avatarUrl: res.data.content,
         });
-        console.log(updateRes);
 
         // show toast message
         if (updateRes.status === 200)

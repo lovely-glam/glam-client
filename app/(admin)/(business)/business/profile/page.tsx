@@ -30,7 +30,7 @@ const BusinessProfile = () => {
         return result.data.content;
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
   const updateService = async (service: ServiceModel) => {
@@ -163,7 +163,6 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetch = async () => {
       const result = await fetchProfile();
-      console.log(result);
       if (result) {
         setNailProfile(result);
         setServiceList(result.nailServices);

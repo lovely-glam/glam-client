@@ -42,7 +42,6 @@ const SideBar = () => {
   const checkUser = async (): Promise<string> => {
     const token = localStorage.getItem('accessToken');
     const role = await checkUserRole(token);
-    console.log(role);
     return role.role;
   };
   const [isExpanded, setIsExpanded] = useState(false);

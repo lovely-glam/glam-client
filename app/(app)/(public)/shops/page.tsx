@@ -42,7 +42,6 @@ const Shops = () => {
       await fetchShops(currentPage);
     }
     fetch();
-    console.log(query);
   }, [currentPage]);
 
   const fetchShops = async (page: number) => {

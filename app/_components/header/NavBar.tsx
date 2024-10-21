@@ -27,7 +27,6 @@ const NavBar = () => {
       const res = await getCurrentUser();
 
       if (res.status === 200) {
-        console.log(res.data);
         setUser(res.data.content);
       }
     }

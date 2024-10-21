@@ -1,7 +1,6 @@
 import { axiosPost } from './baseService';
 
 const baseUrl = process.env.NEXT_PUBLIC_AUTH_HOST;
-console.log(baseUrl);
 
 export const registerCustomer = (data: any) =>
   axiosPost(baseUrl + '/registers/customer', data, '');
