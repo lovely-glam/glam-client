@@ -3,11 +3,17 @@ import Link from 'next/link';
 import React from 'react';
 
 const ShopCard: React.FC<{
-  id: string;
+  id: number;
   name: string;
   rating: number;
   address: string;
-  services: string;
+  services: {
+    id: number;
+    name: string;
+    description: string;
+    basePrice: number;
+    duration: number;
+  }[];
   image: string;
 }> = ({ id, name, rating, address, services, image }) => {
   return (
@@ -29,7 +35,31 @@ const ShopCard: React.FC<{
             <Rating value={rating} />
           </div>
           <p className='border-b-2 border-black pb-4'>{address}</p>
-          <p className='font-bold'>{services}</p>
+          <p className='font-bold'>{services && services.length > 0 ? (
+            services.slice(0, 2).map((service) => {
+              const { name, basePrice, duration } = service;
+              const hours = Math.floor(duration / 60);
+              const minutes = duration % 60;
+              const timeString = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
+
+              return (
+                <div key={service.id} className='pt-2 mt-2'>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-left font-semibold'>{name}</span>
+                    <div className='flex flex-col items-end'>
+                  <span className='text-right font-bold'>{basePrice}</span>
+                  <span className='text-right text-sm'>VND</span>
+                </div>
+                  </div>
+                  <div className='text-left text-sm text-gray-600'>
+                    {timeString}
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <span>No services available</span>
+          )}</p>
         </div>
       </div>
     </Link>
@@ -57,20 +87,18 @@ export const Rating: React.FC<{ value: number }> = ({ value }) => {
             type='radio'
             name='rating-10'
             disabled
-            className={`mask mask-star-2 mask-half-1 ${
-              index < fullStars || (index === fullStars && hasHalfStar)
-                ? 'bg-black'
-                : 'bg-gray-200'
-            }`}
+            className={`mask mask-star-2 mask-half-1 ${index < fullStars || (index === fullStars && hasHalfStar)
+              ? 'bg-black'
+              : 'bg-gray-200'
+              }`}
           />
           {/* Right half of the star */}
           <input
             type='radio'
             name='rating-10'
             disabled
-            className={`mask mask-star-2 mask-half-2 ${
-              index < fullStars ? 'bg-black' : 'bg-gray-200'
-            }`}
+            className={`mask mask-star-2 mask-half-2 ${index < fullStars ? 'bg-black' : 'bg-gray-200'
+              }`}
           />
         </React.Fragment>
       ))}
@@ -99,20 +127,18 @@ export const RatingLarge: React.FC<{ value: number }> = ({ value }) => {
             type='radio'
             name='rating-10'
             disabled
-            className={`mask mask-star-2 mask-half-1 ${
-              index < fullStars || (index === fullStars && hasHalfStar)
-                ? 'bg-black'
-                : 'bg-gray-200'
-            }`}
+            className={`mask mask-star-2 mask-half-1 ${index < fullStars || (index === fullStars && hasHalfStar)
+              ? 'bg-black'
+              : 'bg-gray-200'
+              }`}
           />
           {/* Right half of the star */}
           <input
             type='radio'
             name='rating-10'
             disabled
-            className={`mask mask-star-2 mask-half-2 ${
-              index < fullStars ? 'bg-black' : 'bg-gray-200'
-            }`}
+            className={`mask mask-star-2 mask-half-2 ${index < fullStars ? 'bg-black' : 'bg-gray-200'
+              }`}
           />
         </React.Fragment>
       ))}
