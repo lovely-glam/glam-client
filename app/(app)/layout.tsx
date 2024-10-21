@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import Footer from '../_components/footer/Footer';
 import NavBar from '../_components/header/NavBar';
 import '../globals.css';
-import { getCurrentRole } from '../_services/localService';
 import Client from '../_components/client/Client';
 
 export const metadata: Metadata = {

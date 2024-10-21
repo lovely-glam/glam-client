@@ -23,6 +23,7 @@ const Payment = () => {
   const [hoveredStep, setHoveredStep] = useState<null | 'service' | 'time'>(
     null
   );
+  const [paymentType, setPaymentType] = useState<'pay-os' | 'vn-pay'>('vn-pay');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
@@ -35,6 +36,7 @@ const Payment = () => {
   }, [thankyou]);
 
   useEffect(() => {
+    console.log(hoveredStep)
     checkUser();
   }, []);
 
@@ -167,7 +169,7 @@ const Payment = () => {
             >
               <div
                 className={`step-icon ${
-                  (!showCalendar && !showTimeSelection && !showPayment) ||
+                  showCalendar || showTimeSelection || showPayment ||
                   hoveredStep === 'time'
                     ? 'bg-red-400 text-white'
                     : 'bg-gray-200'
@@ -177,7 +179,7 @@ const Payment = () => {
               </div>
               <span
                 className={`step-label ${
-                  (!showCalendar && !showTimeSelection && !showPayment) ||
+                  showCalendar || showTimeSelection || showPayment ||
                   hoveredStep === 'time'
                     ? 'text-red-400'
                     : ''
@@ -211,7 +213,7 @@ const Payment = () => {
                   hoveredStep === 'time'
                     ? 'text-red-400'
                     : ''
-                }`}
+                } font-semibold`}
               >
                 Thời gian
               </span>
@@ -225,7 +227,7 @@ const Payment = () => {
                 💳
               </div>
               <span
-                className={`step-label ${showPayment ? 'text-red-400' : ''}`}
+                className={`step-label ${showPayment ? 'text-red-400' : ''} font-semibold`}
               >
                 Thanh toán
               </span>
@@ -343,9 +345,11 @@ const Payment = () => {
                   type='radio'
                   name='paymentMethod'
                   value='momo'
+                  disabled={true}
+                  checked={paymentType === 'pay-os'}
                   className='form-radio'
                 />
-                <span>Ví Momo</span>
+                <span className='text-gray-600'>Pay OS (Release Latter)</span>
               </label>
               <label className='flex items-center space-x-2 mt-2'>
                 <input
@@ -353,8 +357,9 @@ const Payment = () => {
                   name='paymentMethod'
                   value='atm'
                   className='form-radio'
+                  checked={paymentType === 'vn-pay'}
                 />
-                <span>Thẻ ATM</span>
+                <span>VN Pay</span>
               </label>
             </div>
             <hr className='my-4' />
