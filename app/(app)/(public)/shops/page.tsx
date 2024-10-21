@@ -27,22 +27,27 @@ export type ShopCardResponse = {
 
 const Shops = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get('p');
+  const q = searchParams.get('q');
   const [paginationResponse, setPaginationResponse] = useState<IPaginationResponse<ShopCardResponse>>()
-
+  const [query, setQuery] = useState<string | null>(q);
   const [currentPage, setCurrentPage] = useState<number>(
-    1
+    0
   );
   const [shops, setShops] = useState<ShopCardResponse[]>([]);
 
 
   useEffect(() => {
-    fetchShops(currentPage);
+    const fetch = async() => {
+      setQuery(q);
+      await fetchShops(currentPage);
+    }
+    fetch();
+    console.log(query);
   }, [currentPage]);
 
   const fetchShops = async (page: number) => {
     try {
-      const res = await getShops(page - 1);
+      const res = await getShops(page, 5, query);
 
       if (res.status === 200) {
         setShops(res.data.content.content);
@@ -77,8 +82,6 @@ const Shops = () => {
                 Previous
               </button>
             )}
-
-            {/* Page Numbers */}
             {(() => {
               const buttons = [];
               for (let i = currentPage; i <= Number.apply(paginationResponse?.totalPage); i++) {
@@ -92,13 +95,12 @@ const Shops = () => {
                     })}
                     onClick={() => setCurrentPage(i)}
                   >
-                    {i}
+                    {i + 1}
                   </button>
                 );
               }
               return buttons;
             })()}
-
             {paginationResponse?.isLastPage && (
               <button
                 className='join-item btn'
