@@ -15,8 +15,8 @@ export interface IPaginationResponse<T> {
   pageSize: number;
   totalResult: number;
   totalPage: number;
-  isFirstPage: boolean;
-  isLastPage: boolean;
+  firstPage: boolean;
+  lastPage: boolean;
 }
 export const axiosGet = (url: string, config: any) => axios.get(url, config);
 

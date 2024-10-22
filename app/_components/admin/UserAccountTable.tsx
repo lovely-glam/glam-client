@@ -17,7 +17,7 @@ const UserAccountTable = () => {
             }
 
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
@@ -28,7 +28,6 @@ const UserAccountTable = () => {
             if (result) {
                 setPaginationResponse(result);
                 setUserAccounts(result.content);
-                console.log(result.content);
             }
         }
         fetch();

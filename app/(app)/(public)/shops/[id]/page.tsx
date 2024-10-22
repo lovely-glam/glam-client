@@ -44,8 +44,6 @@ const ShopDetail = () => {
         service.name
       )}&servicePrice=${service.basePrice}`
     );
-
-    console.log(service);
   };
 
   if (!shop) {

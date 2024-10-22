@@ -52,7 +52,6 @@ const LoginBusiness = () => {
       if (res.status === 200) {
         // save token to local storage
         const data = res.data.content;
-        console.log(jwtDecode(data.accessToken));
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
 

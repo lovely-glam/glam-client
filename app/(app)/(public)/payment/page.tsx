@@ -9,8 +9,6 @@ import { MdOutlineShoppingCart } from 'react-icons/md';
 const Payment = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  // Extract query parameters
   const serviceId = searchParams.get('serviceId');
   const serviceName = searchParams.get('serviceName');
   const servicePrice = searchParams.get('servicePrice');
@@ -36,7 +34,6 @@ const Payment = () => {
   }, [thankyou]);
 
   useEffect(() => {
-    console.log(hoveredStep)
     checkUser();
   }, []);
 

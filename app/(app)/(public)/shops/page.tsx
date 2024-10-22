@@ -37,12 +37,11 @@ const Shops = () => {
 
 
   useEffect(() => {
-    const fetch = async() => {
+    const fetch = async () => {
       setQuery(q);
       await fetchShops(currentPage);
     }
     fetch();
-    console.log(query);
   }, [currentPage]);
 
   const fetchShops = async (page: number) => {
@@ -55,7 +54,7 @@ const Shops = () => {
       }
     } catch (error) { }
   };
-
+  console.log(paginationResponse?.firstPage)
   return (
     shops && (
       <div className='flex flex-col p-10 px-48 space-y-4'>
@@ -72,44 +71,30 @@ const Shops = () => {
             />
           );
         })}
-        <div className='w-full flex justify-center'>
-          <div className='join'>
-            {paginationResponse?.isFirstPage && (
-              <button
-                className='join-item btn'
-                onClick={() => setCurrentPage(currentPage - 1)}
-              >
-                Previous
-              </button>
-            )}
-            {(() => {
-              const buttons = [];
-              for (let i = currentPage; i <= Number.apply(paginationResponse?.totalPage); i++) {
-                buttons.push(
-                  <button
-                    key={i}
-                    className={classNames({
-                      'join-item': true,
-                      btn: true,
-                      'btn-active': currentPage === i,
-                    })}
-                    onClick={() => setCurrentPage(i)}
-                  >
-                    {i + 1}
-                  </button>
-                );
-              }
-              return buttons;
-            })()}
-            {paginationResponse?.isLastPage && (
-              <button
-                className='join-item btn'
-                onClick={() => setCurrentPage(currentPage + 1)}
-              >
-                Next
-              </button>
-            )}
-          </div>
+        <div className='mt-8 flex justify-center space-x-4'>
+          <button
+            className={`btn ${paginationResponse?.firstPage ? 'btn-disabled' : ''}`}
+            onClick={() => { setCurrentPage(currentPage - 1) }}
+            disabled={paginationResponse?.firstPage}
+          >
+            Previous
+          </button>
+          {Array.from({ length: Number(paginationResponse?.totalPage) }, (_, index) => (
+            <button
+              key={index}
+              className={`btn ${paginationResponse?.page === index + 1 ? 'btn-active' : ''}`}
+              onClick={() => { }}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            className={`btn ${paginationResponse?.lastPage ? 'btn-disabled' : ''}`}
+            onClick={() => { setCurrentPage(currentPage + 1) }}
+            disabled={paginationResponse?.lastPage}
+          >
+            Next
+          </button>
         </div>
       </div>
     )

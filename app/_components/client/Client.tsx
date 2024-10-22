@@ -39,8 +39,6 @@ const Client = () => {
   const role = getCurrentRole();
 
   const CheckRole = () => {
-    console.log(role);
-    console.log(pathname);
 
     let isPermitted = false;
 

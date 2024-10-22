@@ -29,7 +29,6 @@ type ChatMessageRequest = {
 const webSocketUrl = (): string => {
   var socketUrl: string | undefined = process.env.NEXT_PUBLIC_WEBSOCKET_HOST;
   if (socketUrl) {
-    console.log(socketUrl);
     const result = socketUrl.replace(/^https/, 'wss').replace(/^http/, 'ws');
     return result + '/ws';
   }
