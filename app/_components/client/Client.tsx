@@ -17,6 +17,7 @@ const routes = [
   { path: '/payment', perm: ['ROLE_USER'] },
   { path: '/profile', perm: ['ROLE_USER'] },
   { path: '/history', perm: ['ROLE_USER'] },
+  { path: '/booking', perm: ['ROLE_USER'] },
   { path: '/security', perm: ['ROLE_USER'] },
   { path: '/shops', perm: ['ROLE_GUEST', 'ROLE_USER'] },
   { path: '/shops/*', perm: ['ROLE_GUEST', 'ROLE_USER'] },
