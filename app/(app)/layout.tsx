@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <Suspense>
-          <Client />
+          {/* <Client /> */}
           <NavBar />
         </Suspense>
         <div className='min-h-screen bg-gray-100'>

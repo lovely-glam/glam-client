@@ -23,7 +23,6 @@ const NavBar = () => {
 
     if (token !== null && token !== undefined) {
       setAuthenticated(true);
-      // TODO: get profile
       const res = await getCurrentUser();
 
       if (res.status === 200) {
@@ -69,7 +68,9 @@ const NavBar = () => {
         </Link>
         <NavLinks />
         <div className='flex space-x-10 items-center'>
-          <RiCalendar2Fill size={25} />
+          <Link href={'/booking'}>
+            <RiCalendar2Fill size={25} />
+          </Link>
           <Link href={'/payment'}>
             <MdOutlineShoppingCart size={25} />
           </Link>
