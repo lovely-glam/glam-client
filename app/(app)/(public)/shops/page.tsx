@@ -54,7 +54,6 @@ const Shops = () => {
       }
     } catch (error) { }
   };
-  console.log(paginationResponse?.firstPage)
   return (
     shops && (
       <div className='flex flex-col p-10 px-48 space-y-4'>
