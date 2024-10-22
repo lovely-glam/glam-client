@@ -39,7 +39,6 @@ const BookingCalender: React.FC = () => {
             if (result) {
                 setPaginationResponse(result);
                 setBookings(result.content);
-                console.log(result)
             }
         }
         fetch();
