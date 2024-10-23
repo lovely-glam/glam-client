@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { Booking } from '../(app)/(customer)/booking/page';
 import { axiosGet, axiosPost, axiosPut, IPaginationResponse, IResponseObject } from './baseService';
+import { PaymentHistoryItem } from '../(app)/(customer)/history/page';
 
 var token: string | null = '';
 
@@ -18,6 +19,14 @@ export const updateUser = (data: any) =>
 
 export const getUserBookings = (page: number, size: number = 5, q?:string): Promise<AxiosResponse<IResponseObject<IPaginationResponse<Booking>>>> => {
   const base = `${baseUrl}/booking/get-by-user?page=${page}&size=${size}`;
+  if (!q) {
+    return axiosGet(base, {headers: { Authorization: token }});
+  }
+  return axiosGet(base + `&q=${q}`,{headers: { Authorization: token }});
+}
+
+export const getUserPaymentHistories = (page: number, size: number = 5, q?:string): Promise<AxiosResponse<IResponseObject<IPaginationResponse<PaymentHistoryItem>>>> => {
+  const base = `${baseUrl}/payments/histories?page=${page}&size=${size}`;
   if (!q) {
     return axiosGet(base, {headers: { Authorization: token }});
   }

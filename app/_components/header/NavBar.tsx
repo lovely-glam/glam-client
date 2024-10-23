@@ -71,7 +71,7 @@ const NavBar = () => {
           <Link href={'/booking'}>
             <RiCalendar2Fill size={25} />
           </Link>
-          <Link href={'/payment'}>
+          <Link href={'/history'}>
             <MdOutlineShoppingCart size={25} />
           </Link>
           {authenticated ? (
