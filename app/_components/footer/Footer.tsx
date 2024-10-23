@@ -14,7 +14,7 @@ const Footer = () => {
               <TiPhoneOutline size={20} /> <div>0394849241</div>
             </li>
             <li className='flex items-center space-x-2'>
-              <TiMail size={22} /> <div>LovelyGlam@gmail.com</div>
+              <TiMail size={22} /> <div>lovelyglam29@gmail.com</div>
             </li>
           </ul>
           <div className='flex space-x-4 mt-4'>

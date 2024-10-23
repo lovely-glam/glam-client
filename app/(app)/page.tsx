@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import ShopCard from '../_components/home/ShopCard';
 import Review from '../_components/home/Review';
-import Website from '../_components/home/Website';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -53,15 +52,10 @@ export default function Home() {
       <h2 className='text-3xl font-semibold text-gray-800 mb-6 pt-16 pl-16'>
         Nổi bật
       </h2>
-
-      {/* Sử dụng component ShopCard */}
       <ShopCard />
 
       {/* Sử dụng component Review */}
       <Review />
-
-      {/* Sử dụng component Website */}
-      <Website />
     </div>
   );
 }
