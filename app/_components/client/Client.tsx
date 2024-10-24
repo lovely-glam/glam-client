@@ -24,6 +24,7 @@ const routes = [
   { path: '/business/profile', perm: ['ROLE_NAILER'] },
   { path: '/business/dashboard', perm: ['ROLE_NAILER'] },
   { path: '/business/chat', perm: ['ROLE_NAILER'] },
+  { path: '/business/chat/*', perm: ['ROLE_NAILER'] },
   { path: '/business/services', perm: ['ROLE_NAILER'] },
   { path: '/business/customers', perm: ['ROLE_NAILER'] },
 ];
