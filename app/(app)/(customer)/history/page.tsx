@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react';
 import { getUserPaymentHistories } from '@/app/_services/userService';
-import { IPaginationResponse, IResponseObject } from '@/app/_services/baseService';
+import { IPaginationResponse} from '@/app/_services/baseService';
 import { pay } from '@/app/_services/bookingService';
 import { useRouter } from 'next/navigation';
 export type PaymentStatus = 'PENDING' | 'COMPLETED' | 'FAILED' | 'CANCEL' | 'REFUNDED';

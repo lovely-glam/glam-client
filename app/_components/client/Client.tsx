@@ -27,6 +27,7 @@ const routes = [
   { path: '/business/chat/*', perm: ['ROLE_NAILER'] },
   { path: '/business/services', perm: ['ROLE_NAILER'] },
   { path: '/business/customers', perm: ['ROLE_NAILER'] },
+  { path: '/business/subscription', perm: ['ROLE_NAILER'] },
 ];
 
 // A function to check if the pathname matches a route pattern

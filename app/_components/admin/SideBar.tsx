@@ -3,7 +3,7 @@ import { checkUserRole } from '@/app/_services/tokenService';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { IconType } from 'react-icons';
-import { FaBars, FaBuilding, FaChartBar, FaChartLine, FaCogs, FaComment, FaHome, FaLock, FaUser, FaUserAlt, FaUsers } from 'react-icons/fa';
+import { FaBars, FaBuilding, FaChartBar, FaChartLine, FaCogs, FaComment, FaHome, FaLock, FaRocket, FaUser, FaUserAlt, FaUsers } from 'react-icons/fa';
 const customerLinks: SideBarLink[] = [
   { title: 'Thông tin', path: '/profile', icon: FaUserAlt },
   { title: 'Bảo mật', path: '/security', icon: FaLock },
@@ -19,7 +19,8 @@ const businessLinks: SideBarLink[] = [
   { title: 'Trang chủ', path: '/business/profile', icon: FaHome },
   { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
   { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
-  { title: 'Chat', path: '/business/chat', icon: FaComment }
+  { title: 'Chat', path: '/business/chat', icon: FaComment },
+  { title: 'Subscription Plans', path: '/business/subscription', icon: FaRocket },
 ]
 
 const adminLinks: SideBarLink[] = [

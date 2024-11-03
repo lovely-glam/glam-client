@@ -80,25 +80,31 @@ const UserAccountTable = () => {
                 </table>
             </div>
 
-            <button
-                className="mt-4 btn btn-pink"
-                onClick={() => {
-                }}
-            >
-                Add User Account
-            </button>
-
-            {/* <div className="mt-4 flex justify-center">
-                            {Array.from({ length: paginationResponse?.totalPage }, (_, index) => (
-                                <button
-                                    key={index}
-                                    className={`btn ${currentPage === index + 1 ? 'btn-active' : ''} btn-sm mx-1`}
-                                    onClick={() => handlePageChange(index + 1)}
-                                >
-                                    {index + 1}
-                                </button>
-                            ))}
-                        </div> */}
+            <div className='mt-8 flex justify-center space-x-4'>
+                <button
+                    className={`btn ${paginationResponse?.firstPage ? 'btn-disabled' : ''}`}
+                    onClick={() => { setCurrentPage(currentPage - 1) }}
+                    disabled={paginationResponse?.firstPage}
+                >
+                    Previous
+                </button>
+                {Array.from({ length: Number(paginationResponse?.totalPage) }, (_, index) => (
+                    <button
+                        key={index}
+                        className={`btn ${paginationResponse?.page === index + 1 ? 'btn-active' : ''}`}
+                        onClick={() => { setCurrentPage(index) }}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+                <button
+                    className={`btn ${paginationResponse?.lastPage ? 'btn-disabled' : ''}`}
+                    onClick={() => { setCurrentPage(currentPage + 1) }}
+                    disabled={paginationResponse?.lastPage}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 }

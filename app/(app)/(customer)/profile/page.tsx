@@ -21,7 +21,6 @@ const Profile = () => {
     const token = localStorage.getItem('accessToken');
 
     if (token !== null && token !== undefined) {
-      // TODO: get profile
       const res: any = await getCurrentUser();
 
       if (res.status === 200) {
