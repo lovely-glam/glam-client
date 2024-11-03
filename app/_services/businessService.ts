@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import { Axios, AxiosResponse } from "axios";
 import { axiosGet, axiosPost, axiosPut, IResponseObject } from "./baseService";
 import { NailProfileDetailResponse } from "@/app/(admin)/(business)/business/profile/page"
 import { ServiceModel } from "../_components/business/ServiceModal";
@@ -15,3 +15,5 @@ export const getProfiles = ():Promise<AxiosResponse<IResponseObject<NailProfileD
 export const updateProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPut(baseUrl + `/nail-services/${data.id}`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});
 
 export const createProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPost(baseUrl + `/nail-services`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});
+
+export const submitSubscriptionPlan = (data: {subscriptionRole: "BASIC" | "PREMIUM";callbackUrl: string}): Promise<AxiosResponse<IResponseObject<{paymentUrl: string}>>> => axiosPost(baseUrl + '/payments/subscription',data, {headers: {Authorization: token}});
