@@ -16,4 +16,4 @@ export const updateProfileService = (data: ServiceModel): Promise<AxiosResponse<
 
 export const createProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPost(baseUrl + `/nail-services`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});
 
-export const submitSubscriptionPlan = (data: {subscriptionRole: "BASIC" | "PREMIUM";callbackUrl: string}): Promise<AxiosResponse<IResponseObject<{paymentUrl: string}>>> => axiosPost(baseUrl + '/payments/subscription',data, {headers: {Authorization: token}});
+export const submitSubscriptionPlan = (data: {subscriptionRole: "BASIC" | "PREMIUM";callbackUrl: string; type: "PAY_OS"|"VN_PAY"}): Promise<AxiosResponse<IResponseObject<{paymentUrl: string}>>> => axiosPost(baseUrl + '/payments/subscription',data, {headers: {Authorization: token}});

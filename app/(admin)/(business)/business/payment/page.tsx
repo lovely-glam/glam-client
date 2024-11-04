@@ -15,9 +15,10 @@ const SubscriptionPaymentConfirm = () => {
         try {
             const subscriptionRole: "BASIC" | "PREMIUM" = role === 'basic' ? "BASIC" : "PREMIUM";
     
-            const data: { subscriptionRole: "BASIC" | "PREMIUM"; callbackUrl: string } = {
+            const data: { subscriptionRole: "BASIC" | "PREMIUM"; callbackUrl: string, type: "PAY_OS"|"VN_PAY" } = {
                 subscriptionRole,
                 callbackUrl: `${window.location.origin}/business/payment`,
+                type: (paymentMethod !== "none" && paymentMethod === "payos") ? "PAY_OS" : "VN_PAY"
             };
             const result = await submitSubscriptionPlan(data);
             if (result.status === 200 && result.data.success) {
