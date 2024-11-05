@@ -109,8 +109,7 @@ const Payment = () => {
     const bookingData = {
       nailServiceId: parseInt(serviceId ?? '0', 10),
       makingDay: selectedDate.toISOString(),
-      startTime: startTime.toISOString(),
-      status: 'BOOKED',
+      startTime: startTime.toISOString()
     };
 
     try {
