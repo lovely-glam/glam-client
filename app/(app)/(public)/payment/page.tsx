@@ -12,12 +12,11 @@ const Payment = () => {
   const serviceId = searchParams.get('serviceId');
   const serviceName = searchParams.get('serviceName');
   const servicePrice = searchParams.get('servicePrice');
-  const thankyou = searchParams.get('thankyou');
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimeSelection, setShowTimeSelection] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
-  const [showThank, setShowThank] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<"none" | "success" | "failed">("none");
   const [hoveredStep, setHoveredStep] = useState<null | 'service' | 'time'>(
     null
   );
@@ -28,10 +27,10 @@ const Payment = () => {
   const [authenticated, setAuthenticated] = useState<any>(false);
 
   useEffect(() => {
-    if (thankyou !== null && thankyou !== undefined) {
-      setShowThank(true);
-    }
-  }, [thankyou]);
+    const status = searchParams.get('status') as "success" | "failed";
+    if (status === "success") setPaymentStatus("success");
+    else if (status === "failed") setPaymentStatus("failed");
+  }, [searchParams]);
 
   useEffect(() => {
     checkUser();
@@ -64,12 +63,6 @@ const Payment = () => {
     '08:00 PM',
     '09:00 PM',
   ];
-
-  if (!thankyou) {
-    if (!serviceId || !serviceName || !servicePrice) {
-      return <div>Loading...</div>;
-    }
-  }
 
   const handleContinue = () => {
     setShowCalendar(true);
@@ -126,11 +119,15 @@ const Payment = () => {
       if (response.status === 200 && response.data.content) {
         const bookingId = response.data.content.id;
 
-        const payData = {
+        const payData: {
+          bookingId: number; 
+          callbackUrl: string;
+          type: "PAY_OS"| "VN_PAY"
+        } = {
           bookingId: bookingId,
-          callbackUrl: `${window.location.origin}/payment?thankyou=next`,
+          callbackUrl: `${window.location.origin}/payment`,
+          type: paymentType === "pay-os" ? "PAY_OS" : "VN_PAY"
         };
-
         const payResponse = await pay(payData);
 
         if (payResponse.status === 200) {
@@ -165,22 +162,20 @@ const Payment = () => {
               onMouseLeave={() => setHoveredStep(null)}
             >
               <div
-                className={`step-icon ${
-                  showCalendar || showTimeSelection || showPayment ||
-                  hoveredStep === 'time'
+                className={`step-icon ${showCalendar || showTimeSelection || showPayment ||
+                    hoveredStep === 'time'
                     ? 'bg-red-400 text-white'
                     : 'bg-gray-200'
-                } rounded-full p-2`}
+                  } rounded-full p-2`}
               >
                 <MdOutlineShoppingCart size={27} className='pl-3' />
               </div>
               <span
-                className={`step-label ${
-                  showCalendar || showTimeSelection || showPayment ||
-                  hoveredStep === 'time'
+                className={`step-label ${showCalendar || showTimeSelection || showPayment ||
+                    hoveredStep === 'time'
                     ? 'text-red-400'
                     : ''
-                } font-semibold`}
+                  } font-semibold`}
               >
                 Dịch vụ
               </span>
@@ -191,35 +186,32 @@ const Payment = () => {
               onMouseLeave={() => setHoveredStep(null)}
             >
               <div
-                className={`step-icon ${
-                  showCalendar ||
-                  showTimeSelection ||
-                  showPayment ||
-                  hoveredStep === 'time'
+                className={`step-icon ${showCalendar ||
+                    showTimeSelection ||
+                    showPayment ||
+                    hoveredStep === 'time'
                     ? 'bg-red-400 text-white'
                     : 'bg-gray-200'
-                } rounded-full p-2`}
+                  } rounded-full p-2`}
               >
                 📅
               </div>
               <span
-                className={`step-label ${
-                  showCalendar ||
-                  showTimeSelection ||
-                  showPayment ||
-                  hoveredStep === 'time'
+                className={`step-label ${showCalendar ||
+                    showTimeSelection ||
+                    showPayment ||
+                    hoveredStep === 'time'
                     ? 'text-red-400'
                     : ''
-                } font-semibold`}
+                  } font-semibold`}
               >
                 Thời gian
               </span>
             </div>
             <div className='step'>
               <div
-                className={`step-icon ${
-                  showPayment ? 'bg-red-400 text-white' : 'bg-gray-200'
-                } rounded-full p-2`}
+                className={`step-icon ${showPayment ? 'bg-red-400 text-white' : 'bg-gray-200'
+                  } rounded-full p-2`}
               >
                 💳
               </div>
@@ -236,7 +228,7 @@ const Payment = () => {
           </div>
         </div>
 
-        {!showCalendar && !showTimeSelection && !showPayment && !showThank ? (
+        {!showCalendar && !showTimeSelection && !showPayment && paymentStatus === "none" ? (
           <div className='mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
             <h2 className='text-lg font-bold mb-2'>{serviceName}</h2>
             <p className='text-gray-600'>
@@ -278,11 +270,10 @@ const Payment = () => {
                 {availableTimes.map((time) => (
                   <div
                     key={time}
-                    className={`p-2 rounded-lg border text-center cursor-pointer ${
-                      selectedTime === time
+                    className={`p-2 rounded-lg border text-center cursor-pointer ${selectedTime === time
                         ? 'bg-red-400 text-white'
                         : 'hover:bg-gray-100'
-                    }`}
+                      }`}
                     onClick={() => handleTimeSelect(time)}
                   >
                     <span className='block text-lg font-bold'>{time}</span>
@@ -300,21 +291,7 @@ const Payment = () => {
               </button>
             </div>
           </>
-        ) : showThank ? (
-          <div className='mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
-            <h2 className='text-lg font-bold mb-4'>Thành công</h2>
-            <p>
-              Bạn đã đặt lịch thành công. Cảm ơn vì đã sử dụng dịch vụ của chúng
-              tôi.
-            </p>
-            <button
-              className='btn btn-primary w-40 mt-4'
-              onClick={() => router.push('/')}
-            >
-              Trở về trang chủ
-            </button>
-          </div>
-        ) : (
+        ) : paymentStatus === "none" ? (
           <div className='mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
             <h2 className='text-lg font-bold mb-4'>Thông tin đặt lịch</h2>
             <p>
@@ -341,12 +318,11 @@ const Payment = () => {
                 <input
                   type='radio'
                   name='paymentMethod'
-                  value='momo'
-                  disabled={true}
+                  value='pay-os'
                   checked={paymentType === 'pay-os'}
                   className='form-radio'
                 />
-                <span className='text-gray-600'>Pay OS (Release Latter)</span>
+                <span>Pay OS</span>
               </label>
               <label className='flex items-center space-x-2 mt-2'>
                 <input
@@ -374,6 +350,33 @@ const Payment = () => {
                 Thanh toán
               </button>
             </div>
+          </div>
+        ) : paymentStatus === "success" ? (
+          <div className='mt-6 p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
+            <h2 className='text-lg font-bold mb-4'>Thành công</h2>
+            <p>
+              Bạn đã đặt lịch thành công. Cảm ơn vì đã sử dụng dịch vụ của chúng
+              tôi.
+            </p>
+            <button
+              className='btn btn-primary w-40 mt-4'
+              onClick={() => router.push('/')}
+            >
+              Trở về trang chủ
+            </button>
+          </div>
+        ) : (
+          <div className='mt-6 p-6 bg-red-100 border border-red-400 rounded-lg shadow-md'>
+            <h2 className='text-lg font-bold mb-4 text-red-600'>Thất bại</h2>
+            <p className='text-red-700'>
+              Đã có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại sau hoặc liên hệ hỗ trợ.
+            </p>
+            <button
+              className='btn w-40 mt-4 bg-red-500 hover:bg-red-600 text-white'
+              onClick={() => router.push('/')}
+            >
+              Trở về trang chủ
+            </button>
           </div>
         )}
       </div>
