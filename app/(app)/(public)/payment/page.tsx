@@ -321,6 +321,7 @@ const Payment = () => {
                   value='pay-os'
                   checked={paymentType === 'pay-os'}
                   className='form-radio'
+                  onChange={() => setPaymentType('pay-os')}
                 />
                 <span>Pay OS</span>
               </label>
@@ -328,7 +329,8 @@ const Payment = () => {
                 <input
                   type='radio'
                   name='paymentMethod'
-                  value='atm'
+                  value='vn-pay'
+                  onChange={() => setPaymentType('vn-pay')}
                   className='form-radio'
                   checked={paymentType === 'vn-pay'}
                 />
