@@ -29,18 +29,17 @@ const BookingBusinessPage = () => {
             [name]: value,
         }));
     };
-    const fetchBookings = async (): Promise<IPaginationResponse<BookingResponse> | undefined> => {
+    const fetchBookings = async (): Promise<void> => {
         try {
             const result = await getBookings(currentPage, 5, query);
 
             if (result.status === 200 && result.data) {
-                return result.data.content;
-            } else {
-                return undefined;
+                setPaginationResponse(result.data.content);
+                setBookings(result.data.content.content ?? []);
+                setCurrentPage(result.data.content.page);
             }
         } catch (error) {
             console.error(error);
-            return undefined
         }
     }
     const applyFilters = () => {
@@ -59,15 +58,7 @@ const BookingBusinessPage = () => {
         console.log(currentPage);
     }
     useEffect(() => {
-        const fetch = async () => {
-            const result = await fetchBookings();
-            if (result) {
-                setPaginationResponse(result);
-                setBookings(result.content ?? []);
-                setCurrentPage(result.page);
-            }
-        }
-        fetch();
+        fetchBookings();
     }, [currentPage, query]);
 
 
@@ -101,9 +92,10 @@ const BookingBusinessPage = () => {
                     progress: undefined,
                     theme: 'light',
                   });
+                  await fetchBookings();
             }else {
                 toast.update(updateToast, {
-                    render: 'Update Failed',
+                    render: result.data.message,
                     type: 'error',
                     isLoading: false,
                     autoClose: 2500,

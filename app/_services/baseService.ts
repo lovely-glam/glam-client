@@ -30,4 +30,4 @@ export const axiosDelete = (url: string, config: any) =>
   axios.delete(url, config);
 
 export const axiosPatch = (url: string, data: any, config: any) =>
-  axios.put(url, data, config);
+  axios.patch(url, data, config);
