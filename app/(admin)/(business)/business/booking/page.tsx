@@ -1,9 +1,8 @@
 "use client"
-import ActionDropdown from "@/app/_components/business/ActionDropdown";
 import { IPaginationResponse } from "@/app/_services/baseService";
-import { getBookings } from "@/app/_services/businessService";
+import { getBookings, changeBookingStatus } from "@/app/_services/businessService";
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import {toast, ToastContainer } from "react-toastify";
 
 export type BookingResponse = {
     id: number;
@@ -23,7 +22,7 @@ const BookingBusinessPage = () => {
         makingDay: '',
     });
     const [query, setQuery] = useState<string>("");
-    const handleFilterChange = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFilter((prevState) => ({
             ...prevState,
@@ -71,8 +70,72 @@ const BookingBusinessPage = () => {
         fetch();
     }, [currentPage, query]);
 
+
+
+    const changeBookingStatusClicked = async(status: "ACCEPTED" | "DENIED" | "DONE", id: number) => {
+        const updateToast = toast.loading(
+            'Updating', {
+            toastId: 'bookingBusinessUpdateToast',
+            autoClose: false,
+            closeOnClick: false,
+            hideProgressBar: true,
+            draggable: false,
+            position: 'bottom-right',
+            pauseOnHover: false,
+            progress: undefined,
+            theme: 'light',
+          });
+        try {
+            const result =await changeBookingStatus(id,status);
+            if (result.status === 200) {
+                toast.update(updateToast, {
+                    render: 'Update Success',
+                    type: 'success',
+                    isLoading: false,
+                    autoClose: 2500,
+                    position: 'bottom-right',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: 'light',
+                  });
+            }else {
+                toast.update(updateToast, {
+                    render: 'Update Failed',
+                    type: 'error',
+                    isLoading: false,
+                    autoClose: 2500,
+                    position: 'bottom-right',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    progress: undefined,
+                    theme: 'light',
+                  });
+            }
+        } catch(err) {
+            toast.update(updateToast, {
+                render: 'Update Failed',
+                type: 'error',
+                isLoading: false,
+                autoClose: 2500,
+                position: 'bottom-right',
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                progress: undefined,
+                theme: 'light',
+              });
+        }
+    }
+
     return (
         <div className="container mx-auto p-6">
+            <ToastContainer/>
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Booking List</h1>
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
                 <div className="flex space-x-4">
@@ -152,11 +215,38 @@ const BookingBusinessPage = () => {
                                     </span>
                                 </td>
                                 <td className="px-6 py-4 border-b relative">
-                                    <ActionDropdown buttons={[
-                                        { title: "View", icon: FaEye, action: () => alert("Viewing item") },
-                                        { title: "Edit", icon: FaEdit, action: () => alert("Editing item") },
-                                        { title: "Delete", icon: FaTrash, action: () => alert("Deleting item") }
-                                    ]} />
+                                    {booking.status === "BOOKED" && (
+                                        <div className="flex space-x-2">
+                                            <button
+                                                onClick={async() => await changeBookingStatusClicked("ACCEPTED", booking.id)}
+                                                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                                            >
+                                                Accept
+                                            </button>
+                                            <button
+                                                onClick={async() => await changeBookingStatusClicked("DENIED", booking.id)}
+                                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                            >
+                                                Deny
+                                            </button>
+                                        </div>
+                                    )}
+                                    {booking.status === "ACCEPTED" && (
+                                        <div className="flex space-x-2">
+                                            <button
+                                                onClick={async() => await changeBookingStatusClicked("DONE", booking.id)}
+                                                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                                            >
+                                                Done
+                                            </button>
+                                            <button
+                                                onClick={async() => await changeBookingStatusClicked("DENIED", booking.id)}
+                                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                                            >
+                                                Deny
+                                            </button>
+                                        </div>
+                                    )}
                                 </td>
                             </tr>
                         ))}

@@ -22,13 +22,16 @@ const ActionDropdown: React.FC<{ buttons: IActionDropdown[] }> = ({ buttons }) =
     return (
         <>
             <button
-                onClick={handleToggle}
+                onPointerEnter={handleToggle}
+                onPointerLeave={closeDropdown}
                 className="text-gray-700 hover:text-gray-900 focus:outline-none"
             >
                 <FaEllipsisV className="w-5 h-5" />
             </button>
             {isOpen && createPortal(
                 <div
+                    onPointerEnter={() => setIsOpen(true)}
+                    onPointerLeave={() => setIsOpen(false)}
                     className="fixed bg-white border rounded shadow-lg py-1 z-50"
                     style={{ top: `${position.top}px`, left: `${position.left}px` }}
                 >

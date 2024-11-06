@@ -1,5 +1,5 @@
 import { Axios, AxiosResponse } from "axios";
-import { axiosGet, axiosPost, axiosPut, IPaginationResponse, IResponseObject } from "./baseService";
+import { axiosGet, axiosPatch, axiosPost, axiosPut, IPaginationResponse, IResponseObject } from "./baseService";
 import { NailProfileDetailResponse } from "@/app/(admin)/(business)/business/profile/page"
 import { ServiceModel } from "../_components/business/ServiceModal";
 import { BookingResponse } from "../(admin)/(business)/business/booking/page";
@@ -26,3 +26,5 @@ export const getBookings = (page:number = 0, size: number = 5, q?:string): Promi
   }
   return axiosGet(baseUrl + `/bookings?page=${page}&size=${size}`, {headers: {Authorization: token}});
 }
+
+export const changeBookingStatus = (id: number, status: "ACCEPTED" | "DENIED" | "DONE"): Promise<AxiosResponse<IResponseObject<BookingResponse>>> => axiosPatch(baseUrl + `/bookings/${id}?status=${status}`,{}, {headers: {Authorization: token}});
