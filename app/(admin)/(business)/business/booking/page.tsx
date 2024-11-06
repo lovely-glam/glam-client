@@ -2,7 +2,7 @@
 import { IPaginationResponse } from "@/app/_services/baseService";
 import { getBookings, changeBookingStatus } from "@/app/_services/businessService";
 import React, { useEffect, useState } from "react";
-import {toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export type BookingResponse = {
     id: number;
@@ -63,7 +63,7 @@ const BookingBusinessPage = () => {
 
 
 
-    const changeBookingStatusClicked = async(status: "ACCEPTED" | "DENIED" | "DONE", id: number) => {
+    const changeBookingStatusClicked = async (status: "ACCEPTED" | "DENIED" | "DONE", id: number) => {
         const updateToast = toast.loading(
             'Updating', {
             toastId: 'bookingBusinessUpdateToast',
@@ -75,9 +75,9 @@ const BookingBusinessPage = () => {
             pauseOnHover: false,
             progress: undefined,
             theme: 'light',
-          });
+        });
         try {
-            const result =await changeBookingStatus(id,status);
+            const result = await changeBookingStatus(id, status);
             if (result.status === 200) {
                 toast.update(updateToast, {
                     render: 'Update Success',
@@ -91,9 +91,9 @@ const BookingBusinessPage = () => {
                     draggable: false,
                     progress: undefined,
                     theme: 'light',
-                  });
-                  await fetchBookings();
-            }else {
+                });
+                await fetchBookings();
+            } else {
                 toast.update(updateToast, {
                     render: result.data.message,
                     type: 'error',
@@ -106,9 +106,9 @@ const BookingBusinessPage = () => {
                     draggable: false,
                     progress: undefined,
                     theme: 'light',
-                  });
+                });
             }
-        } catch(err) {
+        } catch (err) {
             toast.update(updateToast, {
                 render: 'Update Failed',
                 type: 'error',
@@ -121,13 +121,13 @@ const BookingBusinessPage = () => {
                 draggable: false,
                 progress: undefined,
                 theme: 'light',
-              });
+            });
         }
     }
 
     return (
         <div className="container mx-auto p-6">
-            <ToastContainer/>
+            <ToastContainer />
             <h1 className="text-3xl font-bold text-gray-800 mb-6">Booking List</h1>
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
                 <div className="flex space-x-4">
@@ -170,7 +170,7 @@ const BookingBusinessPage = () => {
             <div className="overflow-x-auto bg-white rounded-lg shadow-md">
                 <table className="min-w-full bg-white">
                     <thead>
-                        <tr className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-semibold">
+                        <tr className="bg-gradient-to-r from-red-300 to-red-500 text-white text-sm font-semibold">
                             <th className="px-6 py-4 rounded-tl-lg">ID</th>
                             <th className="px-6 py-4">Shop Service</th>
                             <th className="px-6 py-4">User Account</th>
@@ -199,8 +199,14 @@ const BookingBusinessPage = () => {
                                 <td className="px-6 py-4 border-b">
                                     <span
                                         className={`px-3 py-1 rounded-full text-xs font-semibold ${booking.status === "ACCEPTED"
-                                            ? "bg-green-100 text-green-700"
-                                            : "bg-yellow-100 text-yellow-700"
+                                                ? "bg-green-100 text-green-700"
+                                                : booking.status === "PENDING"
+                                                    ? "bg-yellow-100 text-yellow-700"
+                                                    : booking.status === "DENIED"
+                                                        ? "bg-red-100 text-red-700"
+                                                        : booking.status === "DONE"
+                                                            ? "bg-blue-100 text-blue-700"
+                                                            : "bg-gray-100 text-gray-700"
                                             }`}
                                     >
                                         {booking.status}
@@ -210,13 +216,13 @@ const BookingBusinessPage = () => {
                                     {booking.status === "BOOKED" && (
                                         <div className="flex space-x-2">
                                             <button
-                                                onClick={async() => await changeBookingStatusClicked("ACCEPTED", booking.id)}
+                                                onClick={async () => await changeBookingStatusClicked("ACCEPTED", booking.id)}
                                                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                                             >
                                                 Accept
                                             </button>
                                             <button
-                                                onClick={async() => await changeBookingStatusClicked("DENIED", booking.id)}
+                                                onClick={async () => await changeBookingStatusClicked("DENIED", booking.id)}
                                                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                                             >
                                                 Deny
@@ -226,13 +232,13 @@ const BookingBusinessPage = () => {
                                     {booking.status === "ACCEPTED" && (
                                         <div className="flex space-x-2">
                                             <button
-                                                onClick={async() => await changeBookingStatusClicked("DONE", booking.id)}
+                                                onClick={async () => await changeBookingStatusClicked("DONE", booking.id)}
                                                 className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                                             >
                                                 Done
                                             </button>
                                             <button
-                                                onClick={async() => await changeBookingStatusClicked("DENIED", booking.id)}
+                                                onClick={async () => await changeBookingStatusClicked("DENIED", booking.id)}
                                                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                                             >
                                                 Deny
