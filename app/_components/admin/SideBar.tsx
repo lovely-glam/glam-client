@@ -3,7 +3,7 @@ import { checkUserRole } from '@/app/_services/tokenService';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { IconType } from 'react-icons';
-import { FaBars, FaBuilding, FaChartBar, FaChartLine, FaCogs, FaComment, FaHome, FaLock, FaRocket, FaUser, FaUserAlt, FaUsers } from 'react-icons/fa';
+import { FaBars, FaBuilding, FaCalendarAlt, FaChartBar, FaChartLine, FaCogs, FaComment, FaHome, FaLock, FaRocket, FaSignOutAlt, FaUser, FaUserAlt, FaUsers } from 'react-icons/fa';
 const customerLinks: SideBarLink[] = [
   { title: 'Thông tin', path: '/profile', icon: FaUserAlt },
   { title: 'Bảo mật', path: '/security', icon: FaLock },
@@ -21,6 +21,7 @@ const businessLinks: SideBarLink[] = [
   { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
   { title: 'Chat', path: '/business/chat', icon: FaComment },
   { title: 'Subscription Plans', path: '/business/subscription', icon: FaRocket },
+  { title: 'Booking', path: '/business/booking', icon: FaCalendarAlt },
 ]
 
 const adminLinks: SideBarLink[] = [
@@ -39,6 +40,11 @@ const SideBar = () => {
     };
     getUserRole();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/"
+  }
 
   const checkUser = async (): Promise<string> => {
     const token = localStorage.getItem('accessToken');
@@ -89,7 +95,7 @@ const SideBar = () => {
                 href={link.path}
                 className='flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
               >
-                <link.icon size={24} className='text-white'/>
+                <link.icon size={24} className='text-white' />
                 {isExpanded && <span className='text-lg'>{link.title}</span>}
               </Link>
             ))) ||
@@ -100,11 +106,18 @@ const SideBar = () => {
                 href={link.path}
                 className='flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
               >
-                <link.icon size={24} className='text-white'/>
+                <link.icon size={24} className='text-white' />
                 {isExpanded && <span className='text-lg'>{link.title}</span>}
               </Link>
             )))}
       </div>
+      <button
+        onClick={handleLogout}
+        className='mt-auto flex items-center space-x-3 hover:bg-red-800 p-3 rounded-xl w-full transition-all duration-200'
+      >
+        <FaSignOutAlt size={24} className='text-white' />
+        {isExpanded && <span className='text-lg'>Logout</span>}
+      </button>
     </div>
   );
 };
