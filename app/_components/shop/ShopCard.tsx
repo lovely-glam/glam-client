@@ -29,12 +29,13 @@ const ShopCard: React.FC<{
           />
         </div>
         <div className='card-body'>
-          <h2 className='card-title text-primary italic font-bold'>{name}</h2>
+          <h2 className='card-title text-primary italic text-2xl font-bold'>{name}</h2>
           <div className='flex space-x-2 items-center'>
             <div>{rating.toFixed(1)}</div>
             <Rating value={rating} />
           </div>
           <p className='border-b-2 border-black pb-4'>{address}</p>
+          <p className="text-lg font-semibold mt-1">Các dịch vụ nổi bật</p>
           <p className='font-bold'>{services && services.length > 0 ? (
             services.slice(0, 2).map((service) => {
               const { name, basePrice, duration } = service;
