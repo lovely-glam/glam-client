@@ -38,8 +38,8 @@ const Review = () => {
   return (
     <section className='p-6 bg-gray-50'>
       <div className='min-w-max mx-auto pl-16 pr-16'>
-        <h2 className='text-2xl font-semibold text-gray-800 mb-6'>
-          Đánh giá về dịch vụ
+        <h2 className='text-2xl font-bold text-gray-800 mb-6'>
+          ĐÁNH GIÁ DỊCH VỤ
         </h2>
         <div className='w-full flex space-x-10'>
           {feedbacks.length > 0 ? (

@@ -17,14 +17,15 @@ const NavLinks = () => {
 
   return (
     <div>
-      <ul className='flex space-x-20'>
+      <ul className='flex space-x-16 font-'>
         {links.map((link, index) => (
           <li key={index}>
             <Link
               href={`${link.path}`}
               className={classNames({
-                'text-black font-semibold': link.path === currentPath,
+                'text-primary font-bold': link.path === currentPath,
                 'text-black': link.path !== currentPath,
+                'hover:text-primary': true,
                 'hover:font-semibold transition-colors': true,
                 'select-none': true,
               })}
@@ -35,6 +36,7 @@ const NavLinks = () => {
         ))}
       </ul>
     </div>
+
   );
 };
 
