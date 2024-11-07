@@ -12,6 +12,9 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
+      fontFamily: {
+        'be-vietnam': ['var(--font-be-vietnam)', 'sans-serif'],
+      }
     },
   },
   plugins: [require('daisyui')],
