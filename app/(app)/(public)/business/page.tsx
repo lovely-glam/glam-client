@@ -52,7 +52,7 @@ const Business = () => {
       </div>
       <div className='flex'>
         <div className='p-8 px-20'>
-          <Image src={''} alt='' width={400} height={500} />
+          <Image src={'/icon.ico'} alt='' width={400} height={500} />
         </div>
         <div>
           <div className='text-xl'>

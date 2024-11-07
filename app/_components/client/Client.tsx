@@ -31,6 +31,10 @@ const routes = [
   { path: '/business/payment/*', perm: ['ROLE_NAILER'] },
   { path: '/business/payment', perm: ['ROLE_NAILER'] },
   { path: '/business/booking', perm: ['ROLE_NAILER'] },
+  { path: '/admin/account', perm: ['ROLE_SYSTEM'] },
+  { path: '/admin/business', perm: ['ROLE_SYSTEM'] },
+  { path: '/admin/customer', perm: ['ROLE_SYSTEM'] },
+  { path: '/admin/dashboard', perm: ['ROLE_SYSTEM'] },
 ];
 
 // A function to check if the pathname matches a route pattern
@@ -61,7 +65,7 @@ const Client = () => {
       // Redirect to appropriate dashboard or homepage based on the user's role
       if (role === 'ROLE_NAILER') {
         window.location.replace('/business/profile');
-      } else if (role === 'ROLE_ADMIN') {
+      } else if (role === 'ROLE_SYSTEM') {
         window.location.replace('/admin/dashboard');
       } else {
         window.location.replace('/');
