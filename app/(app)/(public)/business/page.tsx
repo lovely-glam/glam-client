@@ -8,39 +8,47 @@ const Business = () => {
       <div className='text-4xl text-primary font-bold mt-4'>
         Đăng ký tài khoản
       </div>
-      <div className='flex justify-center space-x-24'>
-        <div className='flex flex-col items-center w-1/4 space-y-4'>
-          <div className='bg-secondary w-72 h-48 rounded-3xl'></div>
-          <div className='font-bold'>Đăng nhập tài khoản doanh nghiệp</div>
-          <div>
-            <div className='italic'>
-              Đã có tài khoản? Hãy đăng nhập vào tài khoản doanh nghiệp của bạn
-              tại đây.
-            </div>
-            <br />
-            <div className='italic'>Dành cho doanh nghiệp đã đăng ký.</div>
+      <div className='flex flex-col md:flex-row justify-center items-stretch md:space-x-16 space-y-8 md:space-y-0'>
+        <div className='flex flex-col items-center w-full md:w-1/3 space-y-5 text-center'>
+          <div className='bg-secondary w-[90%] h-48 rounded-3xl overflow-hidden'>
+            <img src="/signin_business.jpg" alt="" loading="lazy" className="w-full h-full object-cover" />
           </div>
-          <Link href='/login-business' className='btn btn-primary'>
+          <div className='font-bold text-lg h-12 flex items-center justify-center'>
+            Đăng nhập tài khoản doanh nghiệp
+          </div>
+          <div className='text-sm text-wrap text-gray-700 h-20'>
+            <p className='italic'>
+              Đã có tài khoản? Hãy đăng nhập vào tài khoản doanh nghiệp của bạn tại đây.
+            </p>
+            <p className='italic mt-1'>*Dành cho doanh nghiệp đã đăng ký.</p>
+          </div>
+          <Link href='/login-business' className='btn btn-primary mt-4'>
             Đăng nhập doanh nghiệp
           </Link>
         </div>
-        <div className='flex flex-col items-center w-1/4 space-y-4'>
-          <div className='bg-secondary w-72 h-48 rounded-3xl'></div>
-          <div className='font-bold'>Tạo tài khoản doanh nghiệp</div>
-          <div>
-            <div className='italic'>
-              Cửa hàng dễ dàng quản lí lịch hẹn, theo dõi doanh thu và phân tích
-              hiệu quả kinh doanh.
-            </div>
-            <div className='italic'>
-              Hỗ trợ cửa hàng trong việc thu hút và giữ chân khách hàng.
-            </div>
+
+        <div className='flex flex-col items-center w-full md:w-1/3 space-y-5 text-center'>
+          <div className='bg-secondary w-[90%] h-48 rounded-3xl overflow-hidden'>
+            <img src="/signup_business.jpg" alt="" loading="lazy" className="w-full h-full object-cover" />
           </div>
-          <Link href='/register-business' className='btn btn-primary'>
+          <div className='font-bold text-lg h-12 flex items-center justify-center'>
+            Tạo tài khoản doanh nghiệp
+          </div>
+          <div className='text-sm text-wrap text-gray-700 h-20'>
+            <p className='italic'>
+              Cửa hàng dễ dàng quản lí lịch hẹn, theo dõi doanh thu và phân tích hiệu quả kinh doanh.
+            </p>
+            <p className='italic mt-1'>
+              Hỗ trợ cửa hàng trong việc thu hút và giữ chân khách hàng.
+            </p>
+          </div>
+          <Link href='/register-business' className='btn btn-primary mt-4'>
             Tạo tài khoản doanh nghiệp
           </Link>
         </div>
       </div>
+
+
       <div>
         Bạn đã có tài khoản? Hãy{' '}
         <Link href='/login' className='text-primary'>
@@ -48,17 +56,16 @@ const Business = () => {
         </Link>
       </div>
       <div className='w-screen bg-primary text-accent text-center font-bold text-3xl italic p-4'>
-        Về Lovely Glam
+        VỀ LOVELY GLAM
       </div>
       <div className='flex'>
-        <div className='p-8 px-20'>
-          <Image src={'/icon.ico'} alt='' width={400} height={500} />
+        <div className='flex items-center justify-center p-8 px-20'>
+          <Image src={'/icon.ico'} alt='' width={500} height={500} />
         </div>
         <div>
           <div className='text-xl'>
             <p className='font-bold'>
-              Lovely Glam: Giải pháp quản lý hoàn hảo cho tiệm nail chuyên
-              nghiệp
+              LOVELY GLAM: GIẢI PHÁP QUẢN LÝ HOÀN HẢO CHO TIỆM NAIL CHUYÊN NGHIỆP
             </p>
             <br />
             <p>
@@ -71,27 +78,21 @@ const Business = () => {
               Với <span className='font-bold'>Lovely Glam</span>, các tiệm nail
               sẽ được:
             </p>
-            <p>
-              Quản lý lịch hẹn hiệu quả: Hệ thống quản lý lịch hẹn thông minh
-              của Lovely Glam giúp các tiệm nail dễ dàng quản lý lịch hẹn của
-              khách hàng, tránh tình trạng nhầm lẫn hay sót lịch.
-            </p>
-            <p>
-              Tăng doanh thu: Lovely Glam giúp các tiệm nail thu hút thêm nhiều
-              khách hàng mới thông qua hệ thống đặt lịch hẹn trực tuyến và các
-              chương trình marketing hiệu quả.
-            </p>
-            <p>
-              Cải thiện dịch vụ khách hàng: Lovely Glam cung cấp các công cụ
-              giúp các tiệm nail chăm sóc khách hàng tốt hơn, chẳng hạn như hệ
-              thống lưu trữ thông tin khách hàng, hệ thống gửi tin nhắn nhắc nhở
-              lịch hẹn và hệ thống thu thập phản hồi khách hàng.
-            </p>
-            <p>
-              Tiết kiệm thời gian và chi phí: Lovely Glam giúp các tiệm nail
-              tiết kiệm thời gian và chi phí vận hành, nhờ vào hệ thống tự động
-              hóa các quy trình thủ công.
-            </p>
+            <ul className='mt-4 space-y-3 list-disc pl-5'>
+              <li>
+                <strong>Quản lý lịch hẹn hiệu quả</strong>: Hệ thống quản lý lịch hẹn thông minh của Lovely Glam giúp các tiệm nail dễ dàng quản lý lịch hẹn của khách hàng, tránh tình trạng nhầm lẫn hay sót lịch.
+              </li>
+              <li>
+                <strong>Tăng doanh thu</strong>: Lovely Glam giúp các tiệm nail thu hút thêm nhiều khách hàng mới thông qua hệ thống đặt lịch hẹn trực tuyến và các chương trình marketing hiệu quả.
+              </li>
+              <li>
+                <strong>Cải thiện dịch vụ khách hàng</strong>: Lovely Glam cung cấp các công cụ giúp các tiệm nail chăm sóc khách hàng tốt hơn, chẳng hạn như hệ thống lưu trữ thông tin khách hàng, hệ thống gửi tin nhắn nhắc nhở lịch hẹn và hệ thống thu thập phản hồi khách hàng.
+              </li>
+              <li>
+                <strong>Tiết kiệm thời gian và chi phí</strong>: Lovely Glam giúp các tiệm nail tiết kiệm thời gian và chi phí vận hành, nhờ vào hệ thống tự động hóa các quy trình thủ công.
+              </li>
+            </ul>
+            <br />
             <p>
               <span className='font-bold'>Lovely Glam</span> cam kết mang đến
               cho các tiệm nail giải pháp quản lý tiệm nail hoàn hảo nhất, giúp
@@ -107,20 +108,21 @@ const Business = () => {
         </div>
       </div>
       <div className='w-screen bg-primary text-accent text-center font-bold text-3xl italic p-4'>
-        Giải pháp để quản lý về phát triển doanh nghiệp của bạn
+        GIẢI PHÁP ĐỂ QUẢN LÝ VÀ PHÁT TRIỂN DOANH NGHIỆP CỦA BẠN
       </div>
       <div className='flex w-full justify-evenly p-4'>
         <div className='bg-[#E5E5E5] w-1/4 shadow-xl rounded-3xl p-10'>
-          <p className='text-lg font-bold'>Đặt phòng trực tuyến</p>
+          <p className='text-lg font-bold'>Đặt lịch trực tuyến</p>
           <p>
-            Được nhìn thấy, dễ tiếp cận, xây dựng thương hiệu của bạn trực
-            tuyến. Tạo hồ sơ trực tuyến trên thị trường của chúng tôi để được
-            hàng nghìn khách hàng tiềm năng trong khu vực của bạn chú ý.
+            Dễ dàng tiếp cận, mở rộng tầm nhìn thương hiệu trực tuyến. Tạo hồ sơ tiệm nails của bạn
+            trên nền tảng Lovely Glam để thu hút hàng nghìn khách hàng tiềm năng trong khu vực.
           </p>
+          <br />
           <p>
-            Từ mạng xã hội đến cửa nhà bạn - thêm nút &quot;Đặt ngay&quot; không
-            giới hạn vào trang Instagram và Facebook của bạn để khách hàng mới
-            hoặc hiện tại có thể đặt lịch ngay lập tức trực tuyến.
+            Từ mạng xã hội đến cửa tiệm – thêm nút &quot;Đặt ngay&quot; vào trang Instagram và Facebook,
+            cho phép khách hàng mới và hiện tại đặt lịch trực tiếp, tiện lợi hơn bao giờ hết.
+            Hợp tác với Lovely Glam giúp tiệm của bạn tiếp cận được nhiều khách hàng,
+            tăng khả năng đặt hẹn và xây dựng thương hiệu bền vững.
           </p>
         </div>
         <div className='bg-[#E5E5E5] w-1/4 shadow-xl rounded-3xl p-10'>
@@ -130,6 +132,7 @@ const Business = () => {
             tôi để tiếp cận người chi tiêu nhiều nhất, trung thành nhất, khách
             hàng cũ và nhiều hơn nữa.
           </p>
+          <br/>
           <p>
             Gây bất ngờ cho khách hàng vào ngày đặc biệt của họ với ưu đãi, biến
             người mới thành khách hàng thường xuyên và giành lại khách hàng đã
@@ -141,13 +144,13 @@ const Business = () => {
           <p className='text-lg font-bold'>Xử lí thanh toán</p>
           <p>
             Xử lý thanh toán của khách hàng một cách an toàn thông qua liên kết
-            thanh toán Momo, thẻ Ngân hàng hoặc thanh toán trực tiếp để có trải
+            thanh toán qua thẻ Ngân hàng hoặc thanh toán trực tiếp để có trải
             nghiệm thanh toán liền mạch.
           </p>
         </div>
       </div>
       <div className='w-screen bg-primary text-accent text-center font-bold text-3xl italic p-4'>
-        Những gì đối tác chúng tôi nói
+        NHỮNG GÌ ĐỐI TÁC CHÚNG TÔI NÓI
       </div>
     </div>
   );
