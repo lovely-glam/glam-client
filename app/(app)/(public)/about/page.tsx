@@ -6,7 +6,7 @@ const About = () => {
       {/* Brand Section */}
       <div className='bg-secondary w-full md:w-1/2 flex flex-col items-center justify-center p-8 rounded-box shadow-lg'>
         <div className='mb-6 w-full'>
-          <img src="/glam_poster.png" alt="" className="w-full h-auto object-cover" />
+          <img src="/glam_poster.png" alt="" loading="lazy" className="w-full h-auto object-cover" />
         </div>
       </div>
 
