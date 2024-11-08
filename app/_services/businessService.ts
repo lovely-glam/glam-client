@@ -22,6 +22,8 @@ export const getProfiles = (): Promise<
   AxiosResponse<IResponseObject<NailProfileDetailResponse>>
 > => axiosGet(baseUrl + '/profiles/me', { headers: { Authorization: token } });
 
+export const updateBusinessProfile = (data: {name: string; avatarUrl: string; thumbnails: string[]; address: string}): Promise<AxiosResponse<IResponseObject<object>>> => axiosPut(baseUrl + '/profiles',data,{headers: {Authorization: token}})
+
 export const updateProfileService = (
   data: ServiceModel
 ): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> =>

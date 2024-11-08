@@ -3,16 +3,12 @@ import Image from "next/image";
 const About = () => {
   return (
     <div className='flex flex-col md:flex-row p-8'>
-      {/* Brand Section */}
       <div className='bg-secondary w-full md:w-1/2 flex flex-col items-center justify-center p-8 rounded-box shadow-lg'>
         <div className='mb-6 w-full'>
           <img src="/glam_poster.png" alt="" loading="lazy" className="w-full h-auto object-cover" />
         </div>
       </div>
-
-
-      {/* Story Section */}
-      <div className='bg-white w-full md:w-1/2 p-8 rounded-box shadow-lg font-be-vietnam'>
+      <div className='bg-white w-full md:w-1/2 p-8 rounded-box shadow-lg'>
         <div className='flex items-center justify-center'>
           <h2 className='text-3xl font-bold text-primary mb-4'>
             Câu chuyện thương hiệu

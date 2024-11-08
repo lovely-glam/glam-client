@@ -1,3 +1,4 @@
+"use client"
 import {
   CategoryScale,
   Chart as ChartJS,
