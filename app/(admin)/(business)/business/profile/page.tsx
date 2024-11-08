@@ -1,8 +1,9 @@
 "use client"
 import ServiceModal, { ServiceModel } from '@/app/_components/business/ServiceModal';
 import React, { useEffect, useState } from 'react';
-import { getProfiles, updateProfileService, createProfileService } from '@/app/_services/businessService';
+import { getProfiles, updateProfileService, createProfileService, updateBusinessProfile } from '@/app/_services/businessService';
 import { toast, ToastContainer } from 'react-toastify';
+import BusinessProfileUpdateModal from '@/app/_components/business/BusinessProfileModal';
 
 export type NailProfileDetailResponse = {
   id: number;
@@ -20,6 +21,13 @@ const BusinessProfile = () => {
   const [serviceList, setServiceList] = useState<ServiceModel[]>([]);
   const [nailProfile, setNailProfile] = useState<NailProfileDetailResponse>();
   const [currentService, setCurrentService] = useState<ServiceModel>();
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [updateProfile, setUpdateProfile] = useState<{ name: string; avatarUrl: string; thumbnails: string[]; address: string }>({
+    name: '',
+    avatarUrl: '',
+    thumbnails: [],
+    address: '',
+  });
   const handleServiceClick = () => {
     setIsModalOpen(true);
   };
@@ -166,14 +174,69 @@ const BusinessProfile = () => {
       if (result) {
         setNailProfile(result);
         setServiceList(result.nailServices);
+        const profileUpdate: { name: string; avatarUrl: string; thumbnails: string[]; address: string } = {
+          name: result?.name || '',
+          avatarUrl: result?.avatarUrl || '',
+          thumbnails: result?.thumbnails || [],
+          address: result?.address || ''
+        }
+        setUpdateProfile(profileUpdate);
       }
     }
     fetch();
-  }, [isModalOpen]);
+  }, [isModalOpen, isProfileModalOpen]);
+  const handleProfileSave = async (profileData: { name: string; avatarUrl: string; thumbnails: string[]; address: string }) => {
+    setUpdateProfile(profileData);
+    const updateToast = toast.loading(
+      'Updating', {
+      toastId: 'profileUpdateToast',
+      autoClose: false,
+      closeOnClick: false,
+      hideProgressBar: true,
+      draggable: false,
+      position: 'bottom-right',
+      pauseOnHover: false,
+      progress: undefined,
+      theme: 'light',
+    });
+    try {
+      const result = await updateBusinessProfile(profileData);
+      if (result.status === 200 && result.data.success === true) {
+        toast.update(updateToast, {
+          render: 'Update Success',
+          type: 'success',
+          isLoading: false,
+          autoClose: 2500,
+          position: 'bottom-right',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: 'light',
+        });
+      }
+      setIsProfileModalOpen(false);
+    } catch (error) {
+      toast.update(updateToast, {
+        render: 'Update Failed',
+        type: 'error',
+        isLoading: false,
+        autoClose: 2500,
+        position: 'bottom-right',
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+  };
   return (
     <div className="min-h-screen w-full bg-gray-50">
       <header>
-        <div className="container mx-auto py-4 px-6">
+        <div className="container mx-auto py-4 px-6 flex justify-between items-center">
           <nav className="flex justify-start space-x-4 text-gray-700">
             <a href="#" className="hover:text-gray-900 transition duration-200">Trang chủ</a>
             <span className="text-gray-400">•</span>
@@ -181,29 +244,19 @@ const BusinessProfile = () => {
             <span className="text-gray-400">•</span>
             <a href="#" className="hover:text-gray-900 transition duration-200">{nailProfile?.name}</a>
           </nav>
+
+          <button
+            onClick={() => setIsProfileModalOpen(true)}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-300"
+          >
+            Cập nhật hồ sơ
+          </button>
         </div>
       </header>
 
       <ToastContainer />
 
       <main className="container mx-auto py-8 px-6">
-        <ServiceModal
-          mode={modalMode}
-          initialData={currentService}
-          onSave={async (service) => {
-            if (service?.id && modalMode === 'edit') {
-              await updateService(service);
-            } else {
-              await createService(service);
-            }
-          }}
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-            setModalMode('none');
-          }}
-        />
-
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-800">{nailProfile?.name}</h1>
         </div>
@@ -243,6 +296,7 @@ const BusinessProfile = () => {
               Thêm dịch vụ
             </button>
           </div>
+
           <div className="space-y-6">
             {serviceList.map((service) => (
               <div
@@ -274,8 +328,31 @@ const BusinessProfile = () => {
           </div>
         </div>
       </main>
-    </div>
 
+      <BusinessProfileUpdateModal
+        isOpen={isProfileModalOpen}
+        onClose={() => setIsProfileModalOpen(false)}
+        onSave={handleProfileSave}
+        initialData={updateProfile}
+      />
+
+      <ServiceModal
+        mode={modalMode}
+        initialData={currentService}
+        onSave={async (service) => {
+          if (service?.id && modalMode === 'edit') {
+            await updateService(service);
+          } else {
+            await createService(service);
+          }
+        }}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setModalMode('none');
+        }}
+      />
+    </div>
   )
 };
 

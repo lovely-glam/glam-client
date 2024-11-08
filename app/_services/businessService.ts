@@ -3,7 +3,6 @@ import { axiosGet, axiosPatch, axiosPost, axiosPut, IPaginationResponse, IRespon
 import { NailProfileDetailResponse } from "@/app/(admin)/(business)/business/profile/page"
 import { ServiceModel } from "../_components/business/ServiceModal";
 import { BookingResponse } from "../(admin)/(business)/business/booking/page";
-import { headers } from "next/headers";
 
 const baseUrl = process.env.NEXT_PUBLIC_BUSINESS_HOST;
 
@@ -13,6 +12,8 @@ if (typeof window !== 'undefined') {
   token = 'Bearer ' + localStorage?.getItem('accessToken');
 }
 export const getProfiles = ():Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosGet(baseUrl + '/profiles/me', {headers: {Authorization: token}});
+
+export const updateBusinessProfile = (data: {name: string; avatarUrl: string; thumbnails: string[]; address: string}): Promise<AxiosResponse<IResponseObject<object>>> => axiosPut(baseUrl + '/profiles',data,{headers: {Authorization: token}})
 
 export const updateProfileService = (data: ServiceModel): Promise<AxiosResponse<IResponseObject<NailProfileDetailResponse>>> => axiosPut(baseUrl + `/nail-services/${data.id}`, (({id, ...restData }) => restData)(data), {headers: {Authorization: token}});
 
