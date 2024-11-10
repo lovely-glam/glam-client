@@ -1,8 +1,40 @@
-"use client"
+'use client';
 import Image from 'next/image';
 import { Rating } from '../shop/ShopCard';
 import { useEffect, useState } from 'react';
 import { getShopFeedbackHome } from '@/app/_services/feedbackService';
+
+const FeedbacksData = [
+  {
+    id: 1,
+    shopId: 1,
+    shopName: 'Lisa Nails',
+    shopAvatar: '/images/shop1.jpg',
+    location: 'Location 1',
+    userAvatar: '/images/user1.jpg',
+    rating: 5,
+    reviewNumber: 1,
+    customerName: 'Ly',
+    joinDate: '2022-01-01',
+    service: 'Service',
+    feedback:
+      'Tôi đã trải nghiệm thử trang web và thấy ổn, sẽ quay lại web vào lần sau.',
+  },
+  {
+    id: 2,
+    shopId: 2,
+    shopName: 'Lisa Nails',
+    shopAvatar: '/images/shop2.jpg',
+    location: 'Location 2',
+    userAvatar: '/images/user2.jpg',
+    rating: 5,
+    reviewNumber: 2,
+    customerName: 'Mai',
+    joinDate: '2022-02-02',
+    service: 'Service',
+    feedback: 'Web mới ra mắt nhưng khá tiện lợi, tìm được tiệm nails gần nhà',
+  },
+];
 
 export type FeedbackResponse = {
   id: number;
@@ -17,24 +49,26 @@ export type FeedbackResponse = {
   joinDate: string;
   service: string;
   feedback: string;
-}
+};
 const Review = () => {
   const [feedbacks, setFeedbacks] = useState<FeedbackResponse[]>([]);
-  const fetchFeedbackHome = async(): Promise<FeedbackResponse[] | undefined> => {
+  const fetchFeedbackHome = async (): Promise<
+    FeedbackResponse[] | undefined
+  > => {
     const result = await getShopFeedbackHome();
     if (result.status === 200) {
       return result.data.content;
     }
-  }
+  };
   useEffect(() => {
-    const fetch = async() => {
+    const fetch = async () => {
       const result = await fetchFeedbackHome();
       if (result) {
         setFeedbacks(result);
       }
-    }
+    };
     fetch();
-  },[])
+  }, []);
   return (
     <section className='p-6 bg-gray-50'>
       <div className='min-w-max mx-auto pl-16 pr-16'>
@@ -42,8 +76,8 @@ const Review = () => {
           ĐÁNH GIÁ DỊCH VỤ
         </h2>
         <div className='w-full flex space-x-10'>
-          {feedbacks.length > 0 ? (
-            feedbacks.map((item) => (
+          {FeedbacksData.length > 0 ? (
+            FeedbacksData.map((item) => (
               <ReviewCard
                 key={item.id}
                 userAvatar={item.userAvatar}
@@ -68,7 +102,25 @@ const Review = () => {
   );
 };
 
-const ReviewCard: React.FC<{ userAvatar: string, fullName: string, rating: number, service: string, comment: string, shopAvatar: string, shopName: string, shopLocation: string }> = ({ userAvatar, fullName, rating, service, comment, shopAvatar, shopName, shopLocation }) => {
+const ReviewCard: React.FC<{
+  userAvatar: string;
+  fullName: string;
+  rating: number;
+  service: string;
+  comment: string;
+  shopAvatar: string;
+  shopName: string;
+  shopLocation: string;
+}> = ({
+  userAvatar,
+  fullName,
+  rating,
+  service,
+  comment,
+  shopAvatar,
+  shopName,
+  shopLocation,
+}) => {
   return (
     <div className='p-6 bg-white shadow-lg rounded-lg flex justify-between items-center w-[70%]'>
       {/* Left side: User Section */}
@@ -87,15 +139,11 @@ const ReviewCard: React.FC<{ userAvatar: string, fullName: string, rating: numbe
             <Rating value={rating} />
             <span className='ml-2'>{rating} Stars</span>
           </div>
-          <p className='mt-2 text-gray-700 text-sm'>
-            {comment}
-          </p>
-          <p className='text-xs text-gray-500 mt-1'>
-            Service: {service}
-          </p>
+          <p className='mt-2 text-gray-700 text-sm'>{comment}</p>
+          {/* <p className='text-xs text-gray-500 mt-1'>Service: {service}</p> */}
         </div>
       </div>
-      <div className='flex items-center space-x-4 bg-gray-100 p-4 rounded-lg border border-gray-300'>
+      {/* <div className='flex items-center space-x-4 bg-gray-100 p-4 rounded-lg border border-gray-300'>
         <Image
           src={shopAvatar}
           alt='Shop Avatar'
@@ -104,12 +152,14 @@ const ReviewCard: React.FC<{ userAvatar: string, fullName: string, rating: numbe
           className='rounded-full border-2 border-pink-400'
         />
         <div>
-          <h4 className='text-md font-bold text-pink-600'>{"Sunshine Nails"}</h4>
+          <h4 className='text-md font-bold text-pink-600'>
+            {'Sunshine Nails'}
+          </h4>
           <p className='text-sm text-gray-600'>Location: {shopLocation}</p>
         </div>
-      </div>
+      </div> */}
     </div>
-  )
-}
+  );
+};
 
 export default Review;
