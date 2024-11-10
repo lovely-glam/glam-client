@@ -17,7 +17,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const updateToast = toast.loading('Updating', {
+    const updateToast = toast.loading('Creating...', {
       toastId: 'contactCreateToast',
       autoClose: false,
       closeOnClick: false,
@@ -61,7 +61,7 @@ const Contact = () => {
       }
     } catch (err) {
       toast.update(updateToast, {
-        render: 'Update Failed',
+        render: 'Create Failed',
         type: 'error',
         isLoading: false,
         autoClose: 2500,
