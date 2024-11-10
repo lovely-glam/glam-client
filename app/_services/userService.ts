@@ -32,3 +32,5 @@ export const getUserPaymentHistories = (page: number, size: number = 5, q?:strin
   }
   return axiosGet(base + `&q=${q}`,{headers: { Authorization: token }});
 }
+
+export const submitContact = (data: {contactName: string; email: string; message: string}): Promise<AxiosResponse<IResponseObject<object>>> => axiosPost(baseUrl + '/contacts',data, {});
