@@ -35,6 +35,7 @@ const routes = [
   { path: '/admin/business', perm: ['ROLE_SYSTEM'] },
   { path: '/admin/customer', perm: ['ROLE_SYSTEM'] },
   { path: '/admin/dashboard', perm: ['ROLE_SYSTEM'] },
+  { path: '/admin/contact', perm: ['ROLE_SYSTEM'] },
 ];
 
 // A function to check if the pathname matches a route pattern
@@ -53,7 +54,6 @@ const Client = () => {
     let isPermitted = false;
 
     routes.forEach((r) => {
-      // Match current path with the route, including wildcard support
       if (matchRoute(r.path, pathname)) {
         if (r.perm.includes(role)) {
           isPermitted = true;
