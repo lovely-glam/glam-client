@@ -17,8 +17,8 @@ type SideBarLink = {
 
 const businessLinks: SideBarLink[] = [
   { title: 'Trang chủ', path: '/business/profile', icon: FaHome },
-  // { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
-  // { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
+  { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
+  { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
   { title: 'Chat', path: '/business/chat', icon: FaComment },
   { title: 'Subscription Plans', path: '/business/subscription', icon: FaRocket },
   { title: 'Booking', path: '/business/booking', icon: FaCalendarAlt },
@@ -26,8 +26,8 @@ const businessLinks: SideBarLink[] = [
 
 const adminLinks: SideBarLink[] = [
   { title: 'Thống kê', path: '/admin/dashboard', icon: FaChartLine },
-  { title: 'Doanh nghiệp', path: '/admin/business', icon: FaBuilding },
-  { title: 'Khách hàng', path: '/admin/customers', icon: FaUser },
+  // { title: 'Doanh nghiệp', path: '/admin/business', icon: FaBuilding },
+  // { title: 'Khách hàng', path: '/admin/customers', icon: FaUser },
   { title: 'Account', path: '/admin/account', icon: FaUserCircle },
   { title: 'Contact', path: '/admin/contact', icon: FaConnectdevelop }
 ];
