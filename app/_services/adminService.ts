@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import {axiosGet, axiosPatch, axiosPost, IPaginationResponse, IResponseObject} from './baseService';
 import { Feedback } from '../(admin)/(admin)/admin/contact/page';
+import { Business } from '../(admin)/(admin)/admin/dashboard/page';
 export type UserAccountRowData = {
     id: number;
     username: string;
@@ -21,3 +22,4 @@ export const getUserAccountManagement = ():Promise<AxiosResponse<IResponseObject
 export const enableCustomerUser = (id: number):Promise<AxiosResponse<IResponseObject<UserAccountRowData>>> => axiosPatch(baseUrl + `/account-management/users/enable/${id}`, {}, {headers: {Authorization: token}});
 export const disableCustomerUser = (id: number):Promise<AxiosResponse<IResponseObject<UserAccountRowData>>> => axiosPatch(baseUrl + `/account-management/users/disable/${id}`, {}, {headers: {Authorization: token}});
 export const getSystemContact = (page: number, size: number, q?: string): Promise<AxiosResponse<IResponseObject<IPaginationResponse<Feedback>>>> => axiosGet(`${baseUrl}/contacts`, {headers: {Authorization: token}});
+export const getBusinessManagement = (page: number, size: number, q?: string): Promise<AxiosResponse<IResponseObject<IPaginationResponse<Business>>>> => axiosGet(`${baseUrl}/business-management`, {headers: {Authorization: token}});
