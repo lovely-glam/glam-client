@@ -37,7 +37,7 @@ const ChatBusinessLayout = ({ children }: Readonly<{ children: React.ReactNode }
     }, [])
     return (
         <div className="flex h-screen w-full">
-            <div className="w-1/4 bg-gray-100 p-6 shadow-lg">
+            <div className="w-1/4 bg-gray-100 p-6 shadow-lg h-[calc(100vh)] overflow-y-auto">
                 <h2 className="font-bold text-lg mb-6 text-gray-700">Danh sách chat</h2>
                 {users.length > 0 ? (
                     users.map((user) => (
