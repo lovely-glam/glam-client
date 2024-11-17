@@ -17,8 +17,8 @@ type SideBarLink = {
 
 const businessLinks: SideBarLink[] = [
   { title: 'Trang chủ', path: '/business/profile', icon: FaHome },
-  { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
-  { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
+  // { title: 'Thống kê', path: '/business/dashboard', icon: FaChartBar },
+  // { title: 'Khách hàng', path: '/business/customers', icon: FaUsers },
   { title: 'Chat', path: '/business/chat', icon: FaComment },
   { title: 'Subscription Plans', path: '/business/subscription', icon: FaRocket },
   { title: 'Booking', path: '/business/booking', icon: FaCalendarAlt },

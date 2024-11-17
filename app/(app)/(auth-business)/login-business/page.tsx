@@ -60,7 +60,7 @@ const LoginBusiness = () => {
 
         // redirect to dashboard
         if (localStorage.getItem('accessToken') !== undefined) {
-          window.location.href = '/business/dashboard';
+          window.location.href = '/business/profile';
         }
       }
     } catch (error) {
