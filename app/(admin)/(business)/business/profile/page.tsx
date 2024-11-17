@@ -271,8 +271,11 @@ const BusinessProfile = () => {
           </div>
 
           <div className="flex flex-col space-y-4">
-            {nailProfile?.thumbnails.map((image, index) => (
-              <div key={index} className="overflow-hidden rounded-lg shadow-md transition-transform hover:scale-105">
+            {nailProfile?.thumbnails.slice(0, 2).map((image, index) => (
+              <div
+                key={index}
+                className="overflow-hidden rounded-lg shadow-md transition-transform hover:scale-105"
+              >
                 <img
                   src={image}
                   alt={`Nail Art ${index + 1}`}
@@ -281,6 +284,7 @@ const BusinessProfile = () => {
               </div>
             ))}
           </div>
+
         </div>
 
         <div className="mt-12">
@@ -297,7 +301,7 @@ const BusinessProfile = () => {
             </button>
           </div>
 
-          <div className="space-y-6">
+          <div className="h-[500px] overflow-y-auto space-y-6 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-300">
             {serviceList.map((service) => (
               <div
                 key={service.id}

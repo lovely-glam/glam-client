@@ -60,7 +60,7 @@ const SideBar = () => {
   };
   return (
     <div
-      className={`bg-gradient-to-b from-[#d46a6a] via-[#a23d3d] to-[#7e2f2f] text-white h-screen ${isExpanded ? 'w-64' : 'w-20'
+      className={`bg-gradient-to-b from-[#d46a6a] via-[#a23d3d] to-[#7e2f2f] text-white ${isExpanded ? 'w-64' : 'w-20'
         } flex flex-col items-center md:items-start p-4 py-12 rounded-tr-3xl shadow-lg transition-all duration-300`}
     >
       <button
